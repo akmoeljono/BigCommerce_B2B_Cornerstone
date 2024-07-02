@@ -140,6 +140,8 @@ export default class Cart extends PageManager {
                 showAlertModal(response.data.errors.join('\n'));
             }
         });
+
+        fetchCartGrandTotal();
     }
 
     cartEditOptions(itemId, productId) {
