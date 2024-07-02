@@ -52,7 +52,7 @@ export default class Category extends CatalogPage {
         sameLevelCategories.forEach(category => {
             $('#same-level-navigation ul').append(`
                 <li class="${this.context.currentCategoryId.toString() === category.id ? 'active' : ''}">
-                    <a href="${category.url}">${category.name}</a>
+                    <a style="font-size: 0.85rem" href="${category.url}">${category.name}</a>
                 </li>
             `);
         });
