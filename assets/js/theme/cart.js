@@ -6,6 +6,7 @@ import utils from '@bigcommerce/stencil-utils';
 import ShippingEstimator from './cart/shipping-estimator';
 import { defaultModal, showAlertModal, ModalEvents } from './global/modal';
 import CartItemDetails from './common/cart-item-details';
+import { fetchCartGrandTotal } from './custom-cart-nav-grand-total';
 
 export default class Cart extends PageManager {
     onReady() {
@@ -64,6 +65,8 @@ export default class Cart extends PageManager {
                 showAlertModal(response.data.errors.join('\n'));
             }
         });
+
+        fetchCartGrandTotal();
     }
 
     cartUpdateQtyTextChange($target, preVal = null) {
@@ -105,6 +108,8 @@ export default class Cart extends PageManager {
                 return showAlertModal(response.data.errors.join('\n'));
             }
         });
+
+        fetchCartGrandTotal();
     }
 
     cartRemoveItem(itemId) {
@@ -117,6 +122,8 @@ export default class Cart extends PageManager {
                 showAlertModal(response.data.errors.join('\n'));
             }
         });
+
+        fetchCartGrandTotal();
     }
 
     cartEditOptions(itemId, productId) {
