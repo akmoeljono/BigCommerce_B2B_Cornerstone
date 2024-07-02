@@ -111,6 +111,7 @@
         {{#if customer}}
             <div class="card-text card-text-price" data-test-info-type="price">
                 {{#or customer (unless settings.hide_price_from_guests)}}
+                    <span style="font-size: 0.8rem; color: #909090">price per piece: </span>
                     {{> components/products/price price=price}}
                 {{else}}
                     {{> components/common/login-for-pricing}}
