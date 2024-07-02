@@ -1,0 +1,72 @@
+---
+category:
+    shop_by_price: true
+    products:
+        limit: {{theme_settings.categorypage_products_per_page}}
+---
+{{inject "categoryProductsPerPage" theme_settings.categorypage_products_per_page}}
+{{inject "allCategories" categories}}
+{{inject "currentCategoryId" category.id}}
+
+{{#partial "head"}}
+    {{#if pagination.category.previous}}
+        <link rel="prev" href="{{pagination.category.previous}}">
+    {{/if}}
+    {{#if pagination.category.next}}
+        <link rel="next" href="{{pagination.category.next}}">
+    {{/if}}
+{{/partial}}
+
+
+{{#partial "hero"}}
+    <div class="category-banner {{#if category.image}}category-banner--full{{/if}}">
+        {{#if category.image}}
+            {{> components/common/responsive-img
+                    image=category.image
+                    fallback_size=theme_settings.zoom_size
+                    lazyload=theme_settings.lazyload_mode
+                    class="category-header-image"
+            }}
+        {{/if}}
+        {{#unless theme_settings.hide_category_page_heading }}
+            <h1 class="page-heading">{{category.name}}</h1>
+            {{{region name="category_below_header"}}}
+        {{/unless}}
+    </div>
+{{/partial}}
+{{#partial "page"}}
+
+{{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+<div class="page isCategoryPage">
+    {{#unless category.subcategories}}
+        <aside class="page-sidebar" id="same-level-navigation">
+            <ul></ul>
+        </aside>
+    {{/unless}}
+
+
+    <div class="page-content" id="product-listing-container">
+        {{#if category.subcategories}}
+            <div class="subcategory-grid">
+                {{#each category.subcategories}}
+                    <a href="{{url}}">
+                        {{> components/common/responsive-img
+                                image=image
+                                class="subcategory-image"
+                                fallback_size=theme_settings.productgallery_size
+                                lazyload=theme_settings.lazyload_mode
+                                default_image=../theme_settings.default_image_product
+                        }}
+                        <h2 class="page-heading">{{name}}</h2>
+                    </a>
+                {{/each}}
+            </div>
+        {{else}}
+            {{> components/category/product-listing}}
+        {{/if}}
+        {{{region name="category_below_content"}}}
+    </div>
+</div>
+
+{{/partial}}
+{{> layout/base}}

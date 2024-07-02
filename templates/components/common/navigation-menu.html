@@ -1,0 +1,336 @@
+<nav class="navPages {{#unless customer}}navPages-guest{{/unless}}">
+    <div class="navPages-quickSearch">
+        {{> components/common/quick-search name='nav-menu-quick-search'}}
+    </div>
+    {{#if customer}}
+        <ul class="navPages-list{{#if theme_settings.navigation_design '!==' 'simple'}} navPages-list-depth-max{{/if}}">
+<!--            {{#each categories}}-->
+<!--                <li class="navPages-item">-->
+<!--                    {{#if ../theme_settings.navigation_design '===' 'simple'}}-->
+<!--                        {{> components/common/navigation-list}}-->
+<!--                    {{/if}}-->
+<!--                    {{#if ../theme_settings.navigation_design '===' 'alternate'}}-->
+<!--                        {{> components/common/navigation-list-alternate}}-->
+<!--                    {{/if}}-->
+<!--                </li>-->
+<!--            {{/each}}-->
+            {{#if theme_settings.header-link-1-show-customers}}
+                <li class="navPages-item navPages-item-page">
+                    <a class="navPages-action{{#if name '==' theme_settings.header-link-1}} activePage{{/if}}"
+                       href="{{theme_settings.header-link-1-url}}"
+                       aria-label="{{theme_settings.header-link-1}}"
+                    >
+                        {{theme_settings.header-link-1}}
+                    </a>
+                </li>
+            {{/if}}
+            {{#if theme_settings.header-link-2-show-customers}}
+                <li class="navPages-item navPages-item-page">
+                    <a class="navPages-action {{#if theme_settings.header-link-2-has-sublinks}}navPages-action-depth-max has-subMenu is-root{{/if}}  {{#if name '==' theme_settings.header-link-2}} activePage{{/if}}"
+                       href="{{theme_settings.header-link-2-url}}"
+                       aria-label="{{theme_settings.header-link-2}}"
+                       data-collapsible="navPages-inspire"
+                    >
+                        {{theme_settings.header-link-2}}
+                        {{#if theme_settings.header-link-2-has-sublinks}}
+                            <i class="icon navPages-action-moreIcon" aria-hidden="true">
+                                <svg><use href="#icon-chevron-down" /></svg>
+                            </i>
+                        {{/if}}
+                    </a>
+                    {{#if theme_settings.header-link-2-has-sublinks}}
+                        <div class="navPage-subMenu navPage-subMenu-horizontal" id="navPages-inspire" aria-hidden="true" tabindex="-1">
+                            <ul class="navPage-subMenu-list">
+                                <li class="navPage-subMenu-item-child">
+                                    <a class="navPage-subMenu-action navPages-action{{#if is_active}} activePage{{/if}}" href="{{theme_settings.sub-link-1-url}}">{{theme_settings.sub-link-1}}</a>
+                                </li>
+                                <li class="navPage-subMenu-item-child">
+                                    <a class="navPage-subMenu-action navPages-action{{#if is_active}} activePage{{/if}}" href="{{theme_settings.sub-link-2-url}}">{{theme_settings.sub-link-2}}</a>
+                                </li>
+                                <li class="navPage-subMenu-item-child">
+                                    <a class="navPage-subMenu-action navPages-action{{#if is_active}} activePage{{/if}}" href="{{theme_settings.sub-link-3-url}}">{{theme_settings.sub-link-3}}</a>
+                                </li>
+                                <li class="navPage-subMenu-item-child">
+                                    <a class="navPage-subMenu-action navPages-action{{#if is_active}} activePage{{/if}}" href="{{theme_settings.sub-link-4-url}}">{{theme_settings.sub-link-4}}</a>
+                                </li>
+                                <li class="navPage-subMenu-item-child">
+                                    <a class="navPage-subMenu-action navPages-action{{#if is_active}} activePage{{/if}}" href="{{theme_settings.sub-link-5-url}}">{{theme_settings.sub-link-5}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    {{/if}}
+                </li>
+            {{/if}}
+            {{#if theme_settings.header-link-3-show-customers}}
+                <li class="navPages-item navPages-item-page">
+                    <a class="navPages-action{{#if name '==' theme_settings.header-link-3}} activePage{{/if}}"
+                       href="{{theme_settings.header-link-3-url}}"
+                       aria-label="{{theme_settings.header-link-3}}"
+                    >
+                        {{theme_settings.header-link-3}}
+                    </a>
+                </li>
+            {{/if}}
+            {{#if theme_settings.header-link-4-show-customers}}
+                <li class="navPages-item navPages-item-page">
+                    <a class="navPages-action{{#if name '==' theme_settings.header-link-4}} activePage{{/if}}"
+                       href="{{theme_settings.header-link-4-url}}"
+                       aria-label="{{theme_settings.header-link-4}}"
+                    >
+                        {{theme_settings.header-link-4}}
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+    {{else}}
+        <ul class="navPages-list{{#if theme_settings.navigation_design '!==' 'simple'}} navPages-list-depth-max{{/if}}">
+            {{#if theme_settings.header-link-1-show-guests}}
+                <li class="navPages-item navPages-item-page">
+                    <a class="navPages-action{{#if name '==' theme_settings.header-link-1}} activePage{{/if}}"
+                       href="{{theme_settings.header-link-1-url}}"
+                       aria-label="{{theme_settings.header-link-1}}"
+                    >
+                        {{theme_settings.header-link-1}}
+                    </a>
+                </li>
+            {{/if}}
+            {{#if theme_settings.header-link-2-show-guests}}
+                <li class="navPages-item navPages-item-page">
+                    <a class="navPages-action {{#if theme_settings.header-link-2-has-sublinks}}navPages-action-depth-max has-subMenu is-root{{/if}}  {{#if name '==' theme_settings.header-link-2}} activePage{{/if}}"
+                       href="{{theme_settings.header-link-2-url}}"
+                       aria-label="{{theme_settings.header-link-2}}"
+                       data-collapsible="navPages-inspire"
+                    >
+                        {{theme_settings.header-link-2}}
+                        {{#if theme_settings.header-link-2-has-sublinks}}
+                            <i class="icon navPages-action-moreIcon" aria-hidden="true">
+                                <svg><use href="#icon-chevron-down" /></svg>
+                            </i>
+                        {{/if}}
+                    </a>
+                    {{#if theme_settings.header-link-2-has-sublinks}}
+                        <div class="navPage-subMenu navPage-subMenu-horizontal" id="navPages-inspire" aria-hidden="true" tabindex="-1">
+                            <ul class="navPage-subMenu-list">
+                                <li class="navPage-subMenu-item-child">
+                                    <a class="navPage-subMenu-action navPages-action{{#if is_active}} activePage{{/if}}" href="{{theme_settings.sub-link-1-url}}">{{theme_settings.sub-link-1}}</a>
+                                </li>
+                                <li class="navPage-subMenu-item-child">
+                                    <a class="navPage-subMenu-action navPages-action{{#if is_active}} activePage{{/if}}" href="{{theme_settings.sub-link-2-url}}">{{theme_settings.sub-link-2}}</a>
+                                </li>
+                                <li class="navPage-subMenu-item-child">
+                                    <a class="navPage-subMenu-action navPages-action{{#if is_active}} activePage{{/if}}" href="{{theme_settings.sub-link-3-url}}">{{theme_settings.sub-link-3}}</a>
+                                </li>
+                                <li class="navPage-subMenu-item-child">
+                                    <a class="navPage-subMenu-action navPages-action{{#if is_active}} activePage{{/if}}" href="{{theme_settings.sub-link-4-url}}">{{theme_settings.sub-link-4}}</a>
+                                </li>
+                                <li class="navPage-subMenu-item-child">
+                                    <a class="navPage-subMenu-action navPages-action{{#if is_active}} activePage{{/if}}" href="{{theme_settings.sub-link-5-url}}">{{theme_settings.sub-link-5}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    {{/if}}
+                </li>
+            {{/if}}
+            {{#if theme_settings.header-link-3-show-guests}}
+                <li class="navPages-item navPages-item-page">
+                    <a class="navPages-action{{#if name '==' theme_settings.header-link-3}} activePage{{/if}}"
+                       href="{{theme_settings.header-link-3-url}}"
+                       aria-label="{{theme_settings.header-link-3}}"
+                    >
+                        {{theme_settings.header-link-3}}
+                    </a>
+                </li>
+            {{/if}}
+            {{#if theme_settings.header-link-4-show-guests}}
+                <li class="navPages-item navPages-item-page">
+                    <a class="navPages-action{{#if name '==' theme_settings.header-link-4}} activePage{{/if}}"
+                       href="{{theme_settings.header-link-4-url}}"
+                       aria-label="{{theme_settings.header-link-4}}"
+                    >
+                        {{theme_settings.header-link-4}}
+                    </a>
+                </li>
+            {{/if}}
+        </ul>
+    {{/if}}
+
+    <ul class="navPages-list navPages-list--user">
+        {{#if currency_selector.currencies.length '>' 1}}
+            <li class="navPages-item">
+                <a class="navPages-action has-subMenu"
+                   href="#"
+                   data-collapsible="navPages-currency"
+                   aria-controls="navPages-currency"
+                   aria-expanded="false"
+                   aria-label="{{lang 'common.currency' code=currency_selector.active_currency_code}}"
+                >
+                    {{lang 'common.currency' code=currency_selector.active_currency_code}}
+                    <i class="icon navPages-action-moreIcon" aria-hidden="true">
+                        <svg>
+                            <use href="#icon-chevron-down"></use>
+                        </svg>
+                    </i>
+                </a>
+                <div class="navPage-subMenu" id="navPages-currency" aria-hidden="true" tabindex="-1">
+                    <ul class="navPage-subMenu-list">
+                        {{#each currency_selector.currencies}}
+                        <li class="navPage-subMenu-item">
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{{switch_url}}}"
+                               aria-label="{{name}}"
+                               data-currency-code="{{{code}}}"
+                               {{#if cart_currency_switch_url.length '>' 0 }}
+                               data-cart-currency-switch-url="{{{cart_currency_switch_url}}}"
+                               {{/if}}
+                               data-warning="{{lang 'common.currency_switch_promotion'}}"
+                            >
+                                {{#if is_active}}
+                                    <strong>{{name}}</strong>
+                                {{else}}
+                                    {{name}}
+                                {{/if}}
+                            </a>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </li>
+        {{/if}}
+        {{#if customer.store_credit.value '>' 0}}
+            <li class="navPages-item">
+                <a class="navPages-action navPages-action--storeCredit">
+                    {{lang 'common.store_credit_overview' credit=customer.store_credit.formatted}}
+                </a>
+            </li>
+        {{/if}}
+        {{#if theme_settings.product_list_display_mode '==' 'list'}}
+            <li class="navPages-item">
+                <a class="navPages-action navPages-action--compare"
+                   href="{{urls.compare}}"
+                   data-compare-nav
+                   aria-label="{{lang 'common.compare'}}"
+                >
+                    {{lang 'common.compare'}}
+                    <span class="countPill countPill--positive countPill--alt"></span>
+                </a>
+            </li>
+        {{/if}}
+        {{#if customer}}
+            <li class="navPages-item">
+                <a class="navPages-action has-subMenu navPages-action-account"
+                   href="{{urls.account.index}}"
+                   data-collapsible="navPages-account"
+                   aria-label="{{lang 'common.account'}}"
+                >
+                    {{lang 'common.account'}}
+                    <i class="icon navPages-action-moreIcon" aria-hidden="true">
+                        <svg><use href="#icon-chevron-down" /></svg>
+                    </i>
+                </a>
+                <div class="navPage-subMenu" id="navPages-account" aria-hidden="true" tabindex="-1">
+                    <ul class="navPage-subMenu-list">
+                        <li class="navPage-subMenu-item">
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{urls.account.orders.all}}"
+                               aria-label="{{lang 'account.nav.orders'}}"
+                            >
+                                {{lang 'account.nav.orders'}}
+                            </a>
+                        </li>
+                        {{#if settings.returns_enabled}}
+                            <li class="navPage-subMenu-item">
+                                <a class="navPage-subMenu-action navPages-action"
+                                   href="{{urls.account.returns}}"
+                                   aria-label="{{lang 'account.nav.returns'}}"
+                                >
+                                    {{lang 'account.nav.returns'}}
+                                </a>
+                            </li>
+                        {{/if}}
+                        <li class="navPage-subMenu-item">
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{urls.account.inbox}}"
+                               aria-label="{{lang 'account.mobile_nav.messages'}}"
+                            >
+                                {{lang 'account.mobile_nav.messages'}}
+                            </a>
+                        </li>
+                        <li class="navPage-subMenu-item">
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{urls.account.addresses}}"
+                               aria-label="{{lang 'account.nav.addresses'}}"
+                            >
+                                {{lang 'account.nav.addresses'}}
+                            </a>
+                        </li>
+                        {{#if settings.show_payment_methods}}
+                            <li class="navPage-subMenu-item">
+                                <a class="navPage-subMenu-action navPages-action"
+                                   href="{{urls.account.payment_methods.all}}"
+                                   aria-label="{{lang 'account.nav.payment_methods'}}"
+                                >
+                                    {{lang 'account.nav.payment_methods'}}
+                                </a>
+                            </li>
+                        {{/if}}
+                        <li class="navPage-subMenu-item">
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{urls.account.wishlists.all}}"
+                               aria-label="{{lang 'account.mobile_nav.wishlists'}}"
+                            >
+                                {{lang 'account.mobile_nav.wishlists'}}
+                            </a>
+                        </li>
+                        <li class="navPage-subMenu-item">
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{urls.account.recent_items}}"
+                               aria-label="{{lang 'account.nav.recently_viewed'}}"
+                            >
+                                {{lang 'account.nav.recently_viewed'}}
+                            </a>
+                        </li>
+                        <li class="navPage-subMenu-item">
+                            <a class="navPage-subMenu-action navPages-action"
+                               href="{{urls.account.details}}"
+                               aria-label="{{lang 'account.nav.settings'}}"
+                            >
+                                {{lang 'account.nav.settings'}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="navPages-item">
+                <a class="navPages-action"
+                   href="{{urls.auth.logout}}"
+                   aria-label="{{lang 'common.logout'}}"
+                >
+                    {{lang 'common.logout'}}
+                </a>
+            </li>
+        {{else}}
+            <li class="navPages-item">
+                <a class="navPages-action"
+                   href="{{urls.auth.login}}"
+                   aria-label="{{lang 'common.login'}}"
+                >
+                    Partner Login
+                </a>
+                <!--{{#if settings.account_creation_enabled}}-->
+                <!--    {{lang 'common.or'}}-->
+                <!--    <a class="navPages-action"-->
+                <!--       href="{{urls.auth.create_account}}"-->
+                <!--       aria-label="{{lang 'common.sign_up'}}"-->
+                <!--    >-->
+                <!--        {{lang 'common.sign_up'}}-->
+                <!--    </a>-->
+                <!--{{/if}}-->
+            </li>
+        {{/if}}
+        {{#if theme_settings.social_icon_placement_top}}
+            <li class="navPages-item">
+                {{> components/common/social-links}}
+            </li>
+        {{/if}}
+    </ul>
+</nav>

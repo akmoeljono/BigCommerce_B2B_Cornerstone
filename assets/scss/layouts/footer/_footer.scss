@@ -1,0 +1,257 @@
+// =============================================================================
+// FOOTER (CSS)
+// =============================================================================
+
+
+// Layout and columns
+// -----------------------------------------------------------------------------
+//
+// 1. To enable the grid's display: inline-block; to work properly, we need to
+//    remove the white-space that it creates between columns with font-size: 0;
+// 2. Re-set the font-size that was reduced to 0 in point 1 for children.
+// 3. Fix for text flickers on windows devices
+//
+// -----------------------------------------------------------------------------
+
+.footer {
+    background-color: #E6E6E6;
+    border-top: container("border");
+    padding: spacing("double") 0;
+    position: relative;
+    transform: translateZ(0); // 3
+    display: flex;
+    flex-direction: column-reverse; //for shopping list
+}
+
+.footer-title-sr-only {
+    height: 1px;
+    left: -10000px;
+    overflow: hidden;
+    position: absolute;
+    top: auto;
+    width: 1px;
+}
+
+.footer-info {
+    display: flex;
+    font-size: 0; // 1
+    align-items: flex-start;
+    justify-content: space-between;
+
+    @media (max-width: 1024px) {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.footer-info-col {
+    @include grid-column(12);
+    color: stencilColor("color-textSecondary");
+    display: inline-block;
+    float: none;
+    font-size: fontSize("base"); // 2
+    overflow-wrap: break-word;
+    text-align: center;
+    vertical-align: top;
+    // TODO: specifically use vendor only for IE11 since overflow-wrap is not supported here
+    -ms-word-break: break-all;
+    margin-bottom: 0;
+
+    @include breakpoint("small") {
+        text-align: left;
+        width: unset;
+    }
+
+    > :first-child {
+        margin-top: 0;
+    }
+
+    > :last-child {
+        margin-bottom: 0;
+    }
+}
+
+.footer-info-col--small {
+    @include breakpoint("medium") {
+        width: width("2/12");
+    }
+}
+
+.footer-info-col--social {
+    width: 100%;
+}
+
+.footer-info-col--left {
+    @include breakpoint("small") {
+        padding: 0;
+    }
+}
+
+.footer-info-col--right {
+    @include breakpoint("small") {
+        left: 50%;
+        position: inherit;
+        width: 50%;
+    }
+
+    @include breakpoint("medium") {
+        left: 0;
+        padding: 0;
+        text-align: right;
+        width: 100%;
+    }
+}
+
+
+// Content
+// -----------------------------------------------------------------------------
+
+.footer-info-heading {
+    color: $footer-heading-fontColor;
+    font-size: fontSize("base");
+    text-transform: inherit;
+}
+
+.footer-info-list {
+    list-style: none;
+    margin-left: 0;
+
+    a {
+        color: stencilColor("color-textSecondary");
+        text-decoration: none;
+
+        &:hover {
+            color: stencilColor("color-textSecondary--hover");
+        }
+    }
+}
+
+.footer-copyright {
+    text-align: center;
+
+    @include breakpoint("small") {
+        text-align: left;
+    }
+
+    > .powered-by {
+        color: stencilColor("color-textSecondary");
+        font-size: fontSize("tiny");
+        margin: 0;
+    }
+
+    a {
+        color: stencilColor("color-textSecondary");
+        text-decoration: none;
+
+        &:hover {
+            color: stencilColor("color-textSecondary--hover");
+        }
+    }
+}
+
+.footer-payment-icons {
+    height: remCalc(40);
+    margin-top: spacing("single");
+
+    @include breakpoint("medium") {
+        margin-top: spacing("double");
+    }
+
+    .footer-payment-icon {
+        height: 100%;
+        margin: spacing("quarter");
+        vertical-align: middle;
+        width: remCalc(50);
+    }
+
+    svg {
+        fill: stencilColor("icon-color");
+    }
+}
+
+.footer-newsletter-summary {
+    text-align: left;
+}
+.footer-left, .footer-right {
+    margin-bottom: 0;
+}
+
+.footer-left {
+    display: flex;
+    align-items: center;
+    align-self: center;
+
+    img {
+        max-width: 138px;
+        width: 100%;
+        margin-right: 40px;
+    }
+
+    @media (max-width: 1024px) {
+        align-self: flex-start;
+        margin-bottom: 40px;
+    }
+
+    @media (max-width: 650px) {
+        flex-direction: column;
+        align-self: center;
+
+        img {
+            margin-right: 0;
+            margin-bottom: 25px;
+        }
+    }
+}
+
+.footer-right {
+    form {
+        margin-bottom: 0;
+    }
+
+    .form-field {
+        margin-bottom: 25px;
+    }
+}
+
+
+.phone, .email {
+    font-size: 18px;
+    color: #4f4f4f;
+
+   p a {
+        text-decoration: none;
+    }
+}
+
+.phone {
+    margin-bottom: 20px;
+}
+
+.email {
+    p {
+        margin-bottom: 0;
+    }
+}
+
+.subscription {
+    margin-left: 50px;
+    padding: 0;
+
+    .socialLinks .icon svg {
+        fill: #006F51;
+
+        &:hover {
+            fill: #008A06;
+        }
+    }
+
+    .footer-info-heading {
+        margin-bottom: 0;
+        font-size: 22px;
+    }
+
+    @media (max-width: 550px) {
+        margin-left: 0;
+        margin-top: 30px;
+    }
+}

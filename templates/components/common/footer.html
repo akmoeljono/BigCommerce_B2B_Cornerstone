@@ -1,0 +1,115 @@
+{{#if banners.bottom}}
+    {{#if settings.data_tag_enabled}}
+        <div class="banners" data-banner-location="bottom">
+            {{#each (limit banners.bottom_metadata 1)}}
+                <div class="banner" data-event-type="promotion" data-entity-id="{{this.id}}" data-name="{{this.banner-name}}" data-position="{{this.location}}" data-name="{{this.banner-name}}">
+                    <div data-event-type="promotion-click">
+                        {{{this.content}}}
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    {{else}}
+        <div class="banners" data-banner-location="bottom">
+            <div class="banner">
+                {{{limit banners.bottom 1}}}
+            </div>
+        </div>
+    {{/if}}
+
+{{/if}}
+<footer class="footer" role="contentinfo">
+    <h2 class="footer-title-sr-only">{{lang 'footer.title'}}</h2>
+    <div class="container">
+            <section class="footer-info">
+                <div class="footer-left">
+                    <img src="{{cdn "/img/B-Bazic-Logo_with-PMS.png"}}" alt="Bazic logo">
+                    <article class="footer-info-col" data-section-type="storeInfo">
+                        {{#if settings.phone_number}}
+                            <div class="phone">{{lang 'footer.call_us'}}
+                            <p><a href="tel:{{settings.phone_number}}">{{settings.phone_number}}</a></p>
+                            </div>
+                        {{/if}}
+                        <div class="email">
+                            <span>Email:</span>
+                            <p><a href="mailto:Info@bazicproducts.com">Info@bazicproducts.com</a></p>
+                        </div>
+                    </article>
+                </div>
+                <div class="footer-right">
+                    <article class="footer-info-col" data-section-type="footer-webPages">
+                        {{#if customer}}
+                            <ul class="footer-info-list">
+                                {{#if theme_settings.footer-link-1-show-customers}}
+                                    <li>
+                                        <a href="{{theme_settings.footer-link-1-url}}">{{theme_settings.footer-link-1}}</a>
+                                    </li>
+                                {{/if}}
+                                {{#if theme_settings.footer-link-2-show-customers}}
+                                    <li>
+                                        <a href="{{theme_settings.footer-link-2-url}}">{{theme_settings.footer-link-2}}</a>
+                                    </li>
+                                {{/if}}
+                                {{#if theme_settings.footer-link-3-show-customers}}
+                                    <li>
+                                        <a href="{{theme_settings.footer-link-3-url}}">{{theme_settings.footer-link-3}}</a>
+                                    </li>
+                                {{/if}}
+                                {{#if theme_settings.footer-link-4-show-customers}}
+                                    <li>
+                                        <a href="{{theme_settings.footer-link-4-url}}">{{theme_settings.footer-link-4}}</a>
+                                    </li>
+                                {{/if}}
+                                {{#if theme_settings.footer-link-5-show-customers}}
+                                    <li>
+                                        <a href="{{theme_settings.footer-link-5-url}}">{{theme_settings.footer-link-5}}</a>
+                                    </li>
+                                {{/if}}
+                                <li>
+                                    <a href="{{urls.sitemap}}">{{lang 'sitemap.page_title'}}</a>
+                                </li>
+                            </ul>
+                        {{else}}
+                            <ul class="footer-info-list">
+                                {{#if theme_settings.footer-link-1-show-guests}}
+                                    <li>
+                                        <a href="{{theme_settings.footer-link-1-url}}">{{theme_settings.footer-link-1}}</a>
+                                    </li>
+                                {{/if}}
+                                {{#if theme_settings.footer-link-2-show-guests}}
+                                    <li>
+                                        <a href="{{theme_settings.footer-link-2-url}}">{{theme_settings.footer-link-2}}</a>
+                                    </li>
+                                {{/if}}
+                                {{#if theme_settings.footer-link-3-show-guests}}
+                                    <li>
+                                        <a href="{{theme_settings.footer-link-3-url}}">{{theme_settings.footer-link-3}}</a>
+                                    </li>
+                                {{/if}}
+                                {{#if theme_settings.footer-link-4-show-guests}}
+                                    <li>
+                                        <a href="{{theme_settings.footer-link-4-url}}">{{theme_settings.footer-link-4}}</a>
+                                    </li>
+                                {{/if}}
+                                {{#if theme_settings.footer-link-5-show-guests}}
+                                    <li>
+                                        <a href="{{theme_settings.footer-link-5-url}}">{{theme_settings.footer-link-5}}</a>
+                                    </li>
+                                {{/if}}
+                                <li>
+                                    <a href="{{urls.sitemap}}">{{lang 'sitemap.page_title'}}</a>
+                                </li>
+                            </ul>
+                        {{/if}}
+                    </article>
+                    <article class="footer-info-col subscription" data-section-type="newsletterSubscription">
+                        {{#if settings.show_newsletter_box}}
+                            {{> components/common/subscription-form}}
+                        {{/if}}
+                        {{> components/common/social-links}}
+                    </article>
+                </div>
+            </section>
+    </div>
+    {{{region name="ssl_site_seal--global"}}}
+</footer>

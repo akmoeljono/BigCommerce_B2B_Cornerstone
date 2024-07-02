@@ -1,0 +1,47 @@
+// =============================================================================
+// CATEGORY (CSS)
+// =============================================================================
+
+
+// Category header
+// -----------------------------------------------------------------------------
+
+.category-header-image {
+    width: 100%;
+}
+
+#same-level-navigation {
+    ul {
+        list-style: none;
+
+        li {
+            margin-bottom: 12px;
+
+            &.active {
+                position: relative;
+
+                &:before {
+                    content: '';
+                    position: absolute;
+                    left: -15px;
+                    width: 5px;
+                    height: 100%;
+                    background-color: #989898;
+                    border-radius: 3px;
+                }
+                a {
+                    font-weight: 700;
+                }
+            }
+        }
+
+        a {
+            font-size: 18px;
+            text-decoration: none;
+        }
+    }
+
+    @media (max-width: 800px) {
+        display: none;
+    }
+}
