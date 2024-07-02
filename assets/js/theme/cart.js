@@ -58,15 +58,12 @@ export default class Cart extends PageManager {
             if (response.data.status === 'succeed') {
                 // if the quantity is changed "1" from "0", we have to remove the row.
                 const remove = (newQty === 0);
-
                 this.refreshContent(remove);
             } else {
                 $el.val(oldQty);
                 showAlertModal(response.data.errors.join('\n'));
             }
         });
-
-        fetchCartGrandTotal();
     }
 
     cartUpdateQtyTextChange($target, preVal = null) {
@@ -108,8 +105,6 @@ export default class Cart extends PageManager {
                 return showAlertModal(response.data.errors.join('\n'));
             }
         });
-
-        fetchCartGrandTotal();
     }
 
     cartRemoveItem(itemId) {
@@ -122,8 +117,6 @@ export default class Cart extends PageManager {
                 showAlertModal(response.data.errors.join('\n'));
             }
         });
-
-        fetchCartGrandTotal();
     }
 
     cartEditOptions(itemId, productId) {
@@ -293,6 +286,8 @@ export default class Cart extends PageManager {
             // edit item in cart
             this.cartEditOptions(itemId, productId);
         });
+
+        fetchCartGrandTotal();
     }
 
     bindPromoCodeEvents() {
