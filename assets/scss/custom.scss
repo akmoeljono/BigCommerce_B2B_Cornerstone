@@ -43,6 +43,9 @@ input[type="checkbox"] {
     color: #4f4f4f;
 }
 @media screen and (min-width:801px) {
+    .body {
+        margin-top: 225px;
+    }
 
     .page .navBar--account .navBar-section .navBar-item:nth-child(7) {
         display: none;
@@ -163,7 +166,6 @@ p.u-textAlignCenter {
 }
 
 @media screen and (max-width:800px) {
-
     .navPages #navPages-account .navPage-subMenu-item.b3-navs:nth-last-of-type(6) {
         display: none;
     }
