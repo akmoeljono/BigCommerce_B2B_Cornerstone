@@ -37,6 +37,31 @@ export default class Global extends PageManager {
         window.b3themeConfig.useText = {
             'global.user.masquerade.begin.button': 'Create New Order',
             'global.user.masquerade.end.button': 'End Order',
+
+            // Change 'Shopping List' to 'Order Drafts'
+            'nav.button.shoppinglists': 'Order Drafts',
+            'shopping.list.title': 'Order Drafts',
+            'shopping.list.create.button': 'Create New Order Draft',
+            'shopping.list.edit.info.button': 'Edit Draft Info',
+            'shopping.list.add.to.list.title': 'Add to Draft',
+            'shopping.list.edit.modal.title': 'Edit Order Draft',
+            'shopping.list.edit.modal.form.name.label': 'Order Draft Name',
+            'shopping.list.createModal.title.label': 'Duplicate Order Draft',
+            'shopping.list.creatNewListBtn': 'Add To a New Draft',
+            'order.addTo.shoppingListBtn': 'Add to Order Drafts',
+            'buyAgain.addToShoppingList.btn': 'Add to Order Drafts',
+            'buyAgain.createModal.title.label': 'Create New Order Draft',
+            'buyAgain.createModal.name.label': 'Order Draft Name',
+            'buyAgain.createModal.name.required': 'Order Draft Name is required',
+            'buyAgain.chooseModal.title.label': 'Choose Order Draft',
+            'tips.chooseShoppingList': 'Choose Order Draft',
+            'tips.addToShoppingListSuccess': 'Product(s) added to the order draft successfully.',
+            'tips.confirmDeleteShoppingList': 'Are you sure you want to delete this order draft?',
+            'tips.deleteShoppingListFailed': 'Order Draft was not deleted. Please try again.',
+            'tips.shoppingListExist': 'The order draft you are to looking is not exist.',
+            'tips.shoppingListUpdateSuccess': 'Order Draft Info changed successfully',
+            'tips.confirmDeleteShoppingListItem': 'Are you sure you want to delete selected item(s) from the order draft?',
+            'tips.deleteShoppingListItemSuccess': 'Product(s) deleted from the order draft successfully'
         };
         window.b3themeConfig.useJavaScript = {
             login: {
