@@ -6,6 +6,7 @@ import utils from '@bigcommerce/stencil-utils';
 import ShippingEstimator from './cart/shipping-estimator';
 import { defaultModal, showAlertModal, ModalEvents } from './global/modal';
 import CartItemDetails from './common/cart-item-details';
+import { fetchCartGrandTotal } from './custom-cart-nav-grand-total';
 
 export default class Cart extends PageManager {
     onReady() {
@@ -29,25 +30,6 @@ export default class Cart extends PageManager {
             this.$cartPageContent.addClass('apple-pay-supported');
         }
     }
-
-    fetchCartGrandTotal() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/cart.php', true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    var parser = new DOMParser();
-                    var doc = parser.parseFromString(xhr.responseText, 'text/html');
-                    var grandTotalElement = doc.querySelector('.cart-total-grandTotal span');
-                    var grand_total = grandTotalElement ? grandTotalElement.textContent : "$0.00";
-                    document.getElementById('custom-total-under-cart').innerHTML = grand_total;
-                } else {
-                    document.getElementById('custom-total-under-cart').innerHTML = '$0.00';
-                }
-            }
-        };
-        xhr.send();
-    };
 
     cartUpdate($target) {
         const itemId = $target.data('cartItemid');
