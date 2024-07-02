@@ -28,6 +28,25 @@ const fetchGraphQLData = async query => {
     }
 };
 
+const fetchCartGrandTotal = () => {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/cart.php', true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(xhr.responseText, 'text/html');
+                var grandTotalElement = doc.querySelector('.cart-total-grandTotal span');
+                var grand_total = grandTotalElement ? grandTotalElement.textContent : "$0.00";
+                document.getElementById('custom-total-under-cart').innerHTML = grand_total;
+            } else {
+                document.getElementById('custom-total-under-cart').innerHTML = '$0.00';
+            }
+        }
+    };
+    xhr.send();
+}
+
 const getProducts = async (productIDs) => {
     const query = getProductsQuery(productIDs);
     return fetchGraphQLData(query);
@@ -37,6 +56,7 @@ const getSingleProduct = async (productID) => {
     const query = getSingleProductQuery(productID);
     return fetchGraphQLData(query);
 };
+
 const formatProduct = product => {
     const variantsWithValues = product.variants.edges.map(variantEdge => {
         const variant = variantEdge.node;
@@ -68,6 +88,7 @@ const formatProduct = product => {
         isInStock: product.inventory.isInStock,
     };
 };
+
 const getFormattedProductData = async productIDs => {
     const products = await getProducts(productIDs);
     return products.site.products.edges.map(productEdge => {
@@ -83,11 +104,11 @@ const getFormattedSingleProduct = async productID => {
 
 const qtyTemplate = (label, sku) => `
         <div id="qty-${sku}" style="margin: auto">
-            <p>${label}</p>
+            <p style="font-size: 0.75rem; margin-bottom: 3px">${label}</p>
             <div class="input-box">
-                <button class="dec"></button>
-                 <input type="number" value="0" min="0" max="1000" data-sku="${sku}">
-                 <button class="inc"></button>
+                <button class="dec qty-input"></button>
+                 <input class="qty-input" type="number" value="0" min="0" max="1000" data-sku="${sku}">
+                 <button class="inc qty-input"></button>
             </div>
         </div>
     `;
@@ -100,6 +121,7 @@ const getCart = () => new Promise((resolve, reject) => {
         }
     });
 });
+
 const updateCartQuantity = cart => {
     const qty = cart ? cart.lineItems.physicalItems.reduce((acc, current) => acc + current.quantity, 0) : 0;
     $('body').trigger('cart-quantity-update', qty);
@@ -108,46 +130,66 @@ const updateCartQuantity = cart => {
     }
 };
 
-const addProductToCart = (sku, qty) => {
-    fetch(`/cart.php?action=add&sku=${sku}&qty=${qty}`)
+const addProductToCart = async (sku, qty) => {
+    await fetch(`/cart.php?action=add&sku=${sku}&qty=${qty}`)
         .then(async (response) => {
             if (!response.ok) {
                 throw new Error(`Failed to add product to cart. Status: ${response.status}`);
             }
             updateCartQuantity(await getCart());
+            fetchCartGrandTotal();
         })
         .catch(error => {
             console.error('Error adding product to cart:', error);
         });
 };
 
-const updateCurrentProduct = (itemId, newQty) => {
-    utils.api.cart.itemUpdate(itemId, newQty, async () => {
+const updateCurrentProduct = async (itemId, newQty) => {
+    await utils.api.cart.itemUpdate(itemId, newQty, async () => {
         updateCartQuantity(await getCart());
+        fetchCartGrandTotal();
     });
 };
 
 
+const disableElement = $inputElement => {
+    $inputElement.prop('disabled', true);
+    $inputElement.css('background-color', '#f4f4f4');
+};
+
+const enableElement = $inputElement => {
+    $inputElement.prop('disabled', false);
+    $inputElement.css('background-color', 'transparent');
+};
+
 const onInputChange = async $input => {
+    const qtyInputElements = $('.input-box').find('.qty-input');
+    disableElement(qtyInputElements);
+
     const qty = $input.val();
     const sku = $input.data('sku');
     const cart = await getCart();
 
     if (!cart) {
-        addProductToCart(sku, qty);
+        await addProductToCart(sku, qty);
         $('.navUser-item--cart').addClass('show');
+        enableElement(qtyInputElements);
         return;
     }
 
     const currentProduct = cart.lineItems.physicalItems.find(product => product.sku === sku);
 
     if (!currentProduct) {
-        addProductToCart(sku, qty);
+        await addProductToCart(sku, qty);
+        enableElement(qtyInputElements);
         return;
     }
 
-    updateCurrentProduct(currentProduct.id, qty);
+    await updateCurrentProduct(currentProduct.id, qty);
+
+    enableElement(qtyInputElements);
 };
+
 const qtyButtonEvent = $selector => {
     $selector.find('button').on('click', (e) => {
         const currentValue = $selector.find('input').val();
@@ -210,7 +252,6 @@ const renderQtyPerUnit = (currentProduct, $productCard) => {
     }
 };
 
-
 const renderOOS = () => `
     <div class="alertBox productAttributes-message">
         <div class="alertBox-column alertBox-icon">
@@ -219,7 +260,6 @@ const renderOOS = () => `
         <p class="alertBox-column alertBox-message">Out of Stock</p>
     </div>
 `;
-
 
 const renderPLPQtyBox = async function (productIDs) {
     const formattedData = await getFormattedProductData(productIDs);
