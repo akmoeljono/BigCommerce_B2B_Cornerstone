@@ -1,4 +1,4 @@
-<a href="#main-content" class="skip-to-main-link">{{lang 'header.skip_to_main'}}</a>
+<!-- <a href="#main-content" class="skip-to-main-link">{{lang 'header.skip_to_main'}}</a> -->
 {{#if banners.top}}
 <div class="banners" data-banner-location="top">
     {{#each (limit banners.top_metadata 1)}}
@@ -10,7 +10,7 @@
     {{/each}}
 </div>
 {{/if}}
-<header class="header" role="banner">
+<header class="header" role="banner" style="position: fixed; top: 0;">
     <a href="#" class="mobileMenu-toggle" data-mobile-menu-toggle="menu">
         <span class="mobileMenu-toggleIcon">Toggle menu</span>
     </a>
