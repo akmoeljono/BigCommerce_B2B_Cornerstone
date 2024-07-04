@@ -236,6 +236,7 @@ export default class Global extends PageManager {
                 ready('.responsive-table.table-active-user.c00128', async () => {
                     const table = document.querySelector('#sale-rep-table');
                     const waitImg = $('.b2b-loading-overlay > img');
+
                     if (window.innerWidth > 551) {
                         const firstHeadColEl = table.querySelector('thead>tr>th');
                         const lastHeadColEl = table.querySelector('thead>tr>th:last-of-type');
@@ -263,6 +264,7 @@ export default class Global extends PageManager {
                         prcListHeadth.innerText = 'Price List';
                         prcListHeadth.classList.add('t-align-left');
                         table.querySelector('thead > tr').insertBefore(prcListHeadth, lastHeadColEl);
+
                     }
 
                     $('#sale-rep-table tbody>tr').each((index, element) => {
@@ -295,9 +297,7 @@ export default class Global extends PageManager {
                         newImg2.appendTo($(prcListTd));
                         lastColEl = table.querySelectorAll('tbody>tr')[index].querySelector('td:last-of-type');
                         table.querySelectorAll('tbody>tr')[index].insertBefore(prcListTd, lastColEl);
-                        
-                        console.log("exit:", element)
-                    })
+                    });
 
                     const paginationPage = $('.pagination.c00127 .pagination-item--current').attr('data-page');
 
@@ -364,6 +364,11 @@ export default class Global extends PageManager {
                             }
                         }
                     }
+
+                    const thFontSize = "0.9rem";
+                    const tdFontSize = "0.8rem";
+                    $('.responsive-table.table-active-user.c00128').find('th').css('font-size', `${thFontSize}`);
+                    $('.responsive-table.table-active-user.c00128').find('td').css('font-size', `${tdFontSize}`);
                 });
             }
         } catch (error) {
