@@ -237,33 +237,66 @@ export default class Global extends PageManager {
                     const table = document.querySelector('#sale-rep-table');
                     const waitImg = $('.b2b-loading-overlay > img');
                     if (window.innerWidth > 551) {
-                        const headth = document.createElement('th');
-                        headth.innerText = 'Account ID';
-                        headth.classList.add('t-align-left');
                         const firstHeadColEl = table.querySelector('thead>tr>th');
-                        table.querySelector('thead > tr').insertBefore(headth, firstHeadColEl);
-                        const headthAdrr = document.createElement('th');
-                        headthAdrr.innerText = 'Company Address';
-                        headthAdrr.classList.add('t-align-left');
                         const lastHeadColEl = table.querySelector('thead>tr>th:last-of-type');
-                        table.querySelector('thead > tr').insertBefore(headthAdrr, lastHeadColEl);
+
+                        // Account Id column
+                        const accountIdHeadth = document.createElement('th');
+                        accountIdHeadth.innerText = 'Account ID';
+                        accountIdHeadth.classList.add('t-align-left');
+                        table.querySelector('thead > tr').insertBefore(accountIdHeadth, firstHeadColEl);
+
+                        // DBA column
+                        const dbaHeadth = document.createElement('th');
+                        dbaHeadth.innerText = 'DBA';
+                        dbaHeadth.classList.add('t-align-left');
+                        table.querySelector('thead > tr').insertBefore(dbaHeadth, lastHeadColEl);
+
+                        // Company Address column
+                        const comAddHeadth = document.createElement('th');
+                        comAddHeadth.innerText = 'Company Address';
+                        comAddHeadth.classList.add('t-align-left');
+                        table.querySelector('thead > tr').insertBefore(comAddHeadth, lastHeadColEl);  
+                        
+                        // Price List column
+                        const prcListHeadth = document.createElement('th');
+                        prcListHeadth.innerText = 'Price List';
+                        prcListHeadth.classList.add('t-align-left');
+                        table.querySelector('thead > tr').insertBefore(prcListHeadth, lastHeadColEl);
                     }
 
                     $('#sale-rep-table tbody>tr').each((index, element) => {
-                        const td = document.createElement('td');
-                        td.classList.add('jsBeforeLastCol');
+                        const firstColEl = table.querySelectorAll('tbody>tr')[index].querySelector('td');
+                        var lastColEl = table.querySelectorAll('tbody>tr')[index].querySelector('td:last-of-type');
                         const newImg = waitImg.clone().removeAttr('style').css('height', '145px');
                         const newImg2 = waitImg.clone().removeAttr('style').css('height', '40px');
-                        newImg.appendTo($(td));
-                        const lastColEl = table.querySelectorAll('tbody>tr')[index].querySelector('td:last-of-type');
-                        table.querySelectorAll('tbody>tr')[index].insertBefore(td, lastColEl);
-    
-                        const td2 = document.createElement('td');
-                        td2.classList.add('jsFirstCol');
-                        newImg2.appendTo($(td2));
-    
-                        const firstColEl = table.querySelectorAll('tbody>tr')[index].querySelector('td');
-                        table.querySelectorAll('tbody>tr')[index].insertBefore(td2, firstColEl);
+
+                        // initiating Account Id data col
+                        const accountIdTd = document.createElement('td');
+                        accountIdTd.classList.add('jsFirstCol', 'accountIdCol');
+                        newImg2.appendTo($(accountIdTd));
+                        table.querySelectorAll('tbody>tr')[index].insertBefore(accountIdTd, firstColEl);
+
+                        // initiating DBA data col
+                        const dbaTd = document.createElement('td');
+                        dbaTd.classList.add('dbaCol');
+                        newImg2.appendTo($(dbaTd));
+                        table.querySelectorAll('tbody>tr')[index].insertBefore(dbaTd, lastColEl);
+
+                        // initiating Address data col
+                        const addrTd = document.createElement('td');
+                        addrTd.classList.add('jsBeforeLastCol', 'addrCol');
+                        newImg2.appendTo($(addrTd));
+                        table.querySelectorAll('tbody>tr')[index].insertBefore(addrTd, lastColEl);
+
+                        // initiating Price List data col
+                        const prcListTd = document.createElement('td');
+                        prcListTd.classList.add('prcListCol');
+                        newImg2.appendTo($(prcListTd));
+                        lastColEl = table.querySelectorAll('tbody>tr')[index].querySelector('td:last-of-type');
+                        table.querySelectorAll('tbody>tr')[index].insertBefore(prcListTd, lastColEl);
+                        
+                        console.log("exit:", element)
                     })
 
                     const paginationPage = $('.pagination.c00127 .pagination-item--current').attr('data-page');
@@ -275,40 +308,58 @@ export default class Global extends PageManager {
                             idsArr.push($(el).attr('id'));
                         })
                         for (const companyId of idsArr) {
-                            const companiInfo = await fetch(`https://api-b2b.bigcommerce.com/api/v2/companies/${companyId}`, b2bOptions)
+                            const companyInfo = await fetch(`https://api-b2b.bigcommerce.com/api/v2/companies/${companyId}`, b2bOptions)
                             .then(response => response.json())
                             .then(result => result);
-                            if (companiInfo.code !== 200) {
+                            console.log(companyInfo)
+                            if (companyInfo.code !== 200) {
                                 const tr = document.getElementById(companyId);
                                 if (tr) {
-                                    const td = tr.querySelector('.jsBeforeLastCol');
+                                    const td = tr.querySelector('.addrCol');
                                     td.innerHTML = 'Please end order to see this information';
-                                    const firstTd = tr.querySelector('.jsFirstCol');
+                                    const firstTd = tr.querySelector('.accountIdCol');
                                     firstTd.innerHTML = '';
+                                    const dbaTd = tr.querySelector('.dbaCol');
+                                    dbaTd.innerHTML = '';
+                                    const prcListTd = tr.querySelector('.prcListCol');
+                                    prcListTd.innerHTML = '';
                                 }
                             } else {
                                 const tr = document.getElementById(companyId);
-                                if (tr) {
-                                    const td = tr.querySelector('.jsBeforeLastCol');    
-                                    td.innerHTML = `<p>${companiInfo.data.addressLine1}</p>`;
-                                    td.innerHTML = td.innerHTML + `<p>${companiInfo.data.city}</p>`;
-                                    td.innerHTML = td.innerHTML + `<p>${companiInfo.data.state}</p>`;
-                                    td.innerHTML = td.innerHTML + `<p>${companiInfo.data.country}</p>`;
-                                    td.innerHTML = td.innerHTML + `<p>${companiInfo.data.zipCode}</p>`;
-                                    const lastColEl = document.getElementById(companyId).querySelector('td:last-of-type');
-                                    document.getElementById(companyId).insertBefore(td, lastColEl);
-                                }
-
+                                // Account Id col data
                                 if (tr) {
                                     const td = tr.querySelector('.jsFirstCol');
                                     let isExist = false;
-                                    companiInfo.data.extraFields.forEach(element => {
+                                    companyInfo.data.extraFields.forEach(element => {
                                         if (element.fieldName === 'Account ID') {
                                             td.innerHTML = element.fieldValue;
                                             isExist = true;
                                         }
                                     });
                                     if (!isExist) td.innerHTML = '';
+                                }
+                                // DBA col data
+                                if (tr) {
+                                    const td = tr.querySelector('.dbaCol');
+                                    let isExist = false;
+                                    companyInfo.data.extraFields.forEach(element => {
+                                        if (element.fieldName === 'DBA') {
+                                            td.innerHTML = element.fieldValue;
+                                            isExist = true;
+                                        }
+                                    });
+                                    if (!isExist) td.innerHTML = '';
+                                }
+                                // Address col data
+                                if (tr) {
+                                    const td = tr.querySelector('.addrCol');
+                                    const address = `<p>${companyInfo.data.addressLine1}</p><p>${companyInfo.data.city}</p><p>${companyInfo.data.state}, ${companyInfo.data.country}</p><p>${companyInfo.data.zipCode}</p>`;
+                                    td.innerHTML = address;
+                                }
+                                // Price List col data
+                                if (tr) {
+                                    const td = tr.querySelector('.prcListCol');
+                                    td.innerHTML = companyInfo.data.catalogName;
                                 }
                             }
                         }
