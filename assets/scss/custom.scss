@@ -199,9 +199,9 @@ p.u-textAlignCenter {
         padding: 7px 1rem;
     }
 
-    .salerep-infobox {
-        margin-top: 1rem;
-    }
+    // .salerep-infobox {
+    //     margin-top: 1rem;
+    // }
 }
 
 @media screen and (max-width:550px) {
@@ -1191,6 +1191,12 @@ p.u-textAlignCenter {
     }
 }
 
+.salerep-infobox {   
+    @media (max-width: 800px) {
+        margin-top: 1rem;
+    }
+}
+
 .salerep-infobox.saler-extends {
     .container {
         @media (max-width: 550px) {
@@ -1207,7 +1213,6 @@ p.u-textAlignCenter {
                 }
             }
         }
-
     }
 }
 
