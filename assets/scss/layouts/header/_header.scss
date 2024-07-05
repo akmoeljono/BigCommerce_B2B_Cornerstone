@@ -48,7 +48,9 @@
         flex-direction: column;
         height: auto;
         overflow: visible;
-        position: relative;
+        // position: relative;
+        position: sticky;
+        top: 0;
     }
 
     &.is-open {
