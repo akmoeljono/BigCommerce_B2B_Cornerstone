@@ -1187,6 +1187,12 @@ p.u-textAlignCenter {
     }
 }
 
+.salerep-infobox {   
+    @media (max-width: 800px) {
+        margin-top: 1rem;
+    }
+}
+
 .salerep-infobox.saler-extends {
     .container {
         @media (max-width: 550px) {
@@ -1203,7 +1209,6 @@ p.u-textAlignCenter {
                 }
             }
         }
-
     }
 }
 
