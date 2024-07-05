@@ -364,11 +364,6 @@ export default class Global extends PageManager {
                             }
                         }
                     }
-
-                    const thFontSize = "0.9rem";
-                    const tdFontSize = "0.8rem";
-                    $('.responsive-table.table-active-user.c00128').find('th').css('font-size', `${thFontSize}`);
-                    $('.responsive-table.table-active-user.c00128').find('td').css('font-size', `${tdFontSize}`);
                 });
             }
         } catch (error) {
