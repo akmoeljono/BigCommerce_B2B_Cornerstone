@@ -1127,18 +1127,40 @@ p.u-textAlignCenter {
     }
 }
 
+// hides Email header on Dashboard
+.c003 table.c00128 tr>th:nth-child(3) {
+    @media (min-width: 551px) {
+        display: none;
+    }
+}
+// hides email entry on Dashboard
 .c003 table.c00128 tr>td:nth-child(3) {
     @media (min-width: 551px) {
         display: none;
     }
 }
 
-.c003 table.c00128 [data-order-by="companyEmail"] {
-    @media (min-width: 551px) {
-        display: none;
+.responsive-table thead {
+    font-size: 0.8rem;
+
+    @media (max-width: 550px) {
+        font-size: 1rem;
     }
 }
 
+.responsive-table tbody {
+    font-size: 0.8rem;
+
+    @media (max-width: 550px) {
+        font-size: 1rem;
+    }
+}
+
+.responsive-table tbody p {
+    margin: 0;
+}
+
+// force set table headers on Dashboard
 .responsive-table tbody td:nth-of-type(1):before {
     @media (max-width: 550px) {
         content: "Account ID:" !important;
@@ -1151,27 +1173,39 @@ p.u-textAlignCenter {
     }
 }
 
-.responsive-table tbody td:nth-of-type(3) {
+.responsive-table tbody td:nth-of-type(3):before {
     @media (max-width: 550px) {
         display: none;
     }
 }
 
-.responsive-table tbody td:nth-of-type(4)>p {
-    @media (max-width: 550px) {
-        margin-bottom: 2px;
-    }
-}
-
 .responsive-table tbody td:nth-of-type(4):before {
     @media (max-width: 550px) {
-        content: "Company Address:" !important;
+        content: "DBA:" !important;
     }
 }
 
 .responsive-table tbody td:nth-of-type(5):before {
     @media (max-width: 550px) {
+        content: "Company Address:" !important;
+    }
+}
+
+.responsive-table tbody td:nth-of-type(6):before {
+    @media (max-width: 550px) {
+        content: "Price List:" !important;
+    }
+}
+
+.responsive-table tbody td:nth-of-type(7):before {
+    @media (max-width: 550px) {
         content: "Company Admin Impersonation:" !important;
+    }
+}
+
+.responsive-table tbody td:nth-of-type(3) {
+    @media (max-width: 550px) {
+        display: none;
     }
 }
 
