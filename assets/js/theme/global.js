@@ -65,7 +65,7 @@ export default class Global extends PageManager {
             'tips.confirmDeleteShoppingListItem': 'Are you sure you want to delete selected item(s) from the order draft?',
             'tips.deleteShoppingListItemSuccess': 'Product(s) deleted from the order draft successfully',
 
-            'dashboard.top.salesInfo.label': '',
+            'dashboard.top.salesInfo.label': 'Account Name:',
             'dashboard.company.selected': 'Selected',
         };
 
