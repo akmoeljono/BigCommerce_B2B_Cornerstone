@@ -33,7 +33,9 @@ export default class Global extends PageManager {
         const $body = $('body');
         const B3StorefrontURL = 'https://cdn.bundleb2b.net/b3-auto-loader.js';
         $body.append(`<script src="${B3StorefrontURL}"></script>`);
+
         window.b3themeConfig = window.b3themeConfig || {};
+
         window.b3themeConfig.useText = {
             'global.user.masquerade.begin.button': 'Create New Order',
             'global.user.masquerade.end.button': 'End Order',
@@ -61,8 +63,28 @@ export default class Global extends PageManager {
             'tips.shoppingListExist': 'The order draft you are to looking is not exist.',
             'tips.shoppingListUpdateSuccess': 'Order Draft Info changed successfully',
             'tips.confirmDeleteShoppingListItem': 'Are you sure you want to delete selected item(s) from the order draft?',
-            'tips.deleteShoppingListItemSuccess': 'Product(s) deleted from the order draft successfully'
+            'tips.deleteShoppingListItemSuccess': 'Product(s) deleted from the order draft successfully',
+
+            'dashboard.top.salesInfo.label': '',
+            'dashboard.company.selected': 'Selected',
         };
+
+        window.b3themeConfig.useStyles = {
+            'dashboard.head.info.left' : {
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'start',
+                fontSize: '0.8rem'
+            },
+            'dashboard.head.info.right' : {
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '0.8rem'
+            }
+        };
+
         window.b3themeConfig.useJavaScript = {
             login: {
                 callback(instance) {
@@ -223,7 +245,7 @@ export default class Global extends PageManager {
                         if (superAdminCompany) {
                             superAdminCompany.extraFields.forEach(element => {
                                 if (element.fieldName === 'Account ID') {
-                                    const newText = `Account id: ${element.fieldValue}`;
+                                    const newText = `Account ID: ${element.fieldValue}`;
                                     $('<span></span>').text(newText).addClass('custom_acc_id').appendTo('.container.c00110>.c00111');
                                 }
                             });
