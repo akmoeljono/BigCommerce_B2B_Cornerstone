@@ -333,7 +333,6 @@ export default class Global extends PageManager {
                             const companyInfo = await fetch(`https://api-b2b.bigcommerce.com/api/v2/companies/${companyId}`, b2bOptions)
                             .then(response => response.json())
                             .then(result => result);
-                            console.log(companyInfo)
                             if (companyInfo.code !== 200) {
                                 const tr = document.getElementById(companyId);
                                 if (tr) {
