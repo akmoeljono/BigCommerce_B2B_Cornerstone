@@ -82,6 +82,9 @@ export default class Global extends PageManager {
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '0.8rem'
+            },
+            'dashboard.top.salesInfo.label' : {
+                backgroundColor: "red"
             }
         };
 
