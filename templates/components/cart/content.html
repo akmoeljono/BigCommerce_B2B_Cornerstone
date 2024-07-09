@@ -9,6 +9,107 @@
     </thead>
     <tbody class="cart-list">
         {{#each cart.items}}
+            <script type="text/javascript">
+                var cartProductQuery = `query ProductById{
+                    site {
+                        product(entityId: {{this.product_id}}) {
+                            name
+                            inventory {
+                                isInStock
+                            }
+                            customFields {
+                                edges {
+                                node {
+                                    name
+                                    value
+                                }
+                                }
+                            }
+                            variants {
+                                edges {
+                                node {
+                                    prices {
+                                    basePrice {
+                                        value
+                                    }
+                                    }
+                                    id
+                                    entityId
+                                    sku
+                                    isPurchasable
+                                    inventory {
+                                    isInStock
+                                    }
+                                    options {
+                                    edges {
+                                        node {
+                                        displayName
+                                        entityId
+                                        values {
+                                            edges {
+                                            node {
+                                                entityId
+                                                label
+                                            }
+                                            }
+                                        }
+                                        }
+                                    }
+                                    }
+                                }
+                                }
+                            }
+                            entityId
+                            }
+                        }
+                    }`;
+                async function fetchGraphQLData(query) {
+                    const queryOptions = {
+                        method: 'POST',
+                        credentials: 'same-origin',
+                        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${bearerToken}` },
+                        body: JSON.stringify({
+                            query,
+                        }),
+                    };
+
+                    try {
+                        const response = await fetch('/graphql', queryOptions);
+                        const result = await response.json();
+
+                        if (!result || !result.data) {
+                            throw new Error('Invalid GraphQL response');
+                        }
+
+                        return result.data;
+                    } catch (error) {
+                        console.error('GraphQL error:', error);
+                        throw error;
+                    }
+                };
+
+                async function getSingleProduct() {
+                    const query = cartProductQuery;
+                    return await fetchGraphQLData(query);
+                };
+                
+                function getInStockStatus(variantId, product) {
+                    var isInStock = product.site.product.inventory.isInStock;
+                    const target = variantId;
+                    return isInStock;
+                };
+
+                getSingleProduct().then((product) => {
+                    var variantId = "{{this.variant_id}}";
+                    var isInStock = getInStockStatus(variantId, product);
+                    if (!isInStock) {
+                        document.getElementById("oos-{{this.id}}").innerHTML = "Out of Stock";
+                        document.querySelectorAll(".oos-{{this.id}}").forEach(el => {
+                            el.style.display = "none";
+                        })
+                    };
+                });
+            </script>
             <tr class="cart-item" data-item-row>
                 <td class="cart-item-block cart-item-figure">
                     {{#if type '==' 'GiftCertificate'}}
@@ -96,11 +197,11 @@
                         {{> components/common/login-for-pricing}}
                     {{/or}}
                 </td>
-
+                
                 <td class="cart-item-block cart-item-info cart-item-quantity">
-
-                    <label class="form-label cart-item-label" for="qty-{{id}}">{{lang 'products.quantity'}}</label>
-                    <div class="form-increment">
+                    <div id="oos-{{this.id}}" style="color: red;"></div>
+                    <label class="form-label cart-item-label oos-{{this.id}}" for="qty-{{id}}">{{lang 'products.quantity'}}</label>
+                    <div class="form-increment oos-{{this.id}}">
                         {{#if can_modify}}
                             <button class="button button--icon"
                                     data-cart-update
@@ -137,7 +238,6 @@
                             </button>
                         {{/if}}
                     </div>
-
                 </td>
 
                 <td class="cart-item-block cart-item-info">
@@ -145,7 +245,7 @@
                     {{#or ../customer (unless ../settings.hide_price_from_guests) (if type '==' 'GiftCertificate')}}
                         <strong class="cart-item-value {{#if total_discounted}}price--discounted{{/if}}">{{total.formatted}}</strong>
                         {{#if total_discounted}}
-                            <strong class="cart-item-value">{{total_discounted.formatted}}</strong>
+                            <strong class="cart-item-value oos-{{this.id}}">{{total_discounted.formatted}}</strong>
                         {{/if}}
                     {{else}}
                         --
