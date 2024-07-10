@@ -67,6 +67,7 @@ export default class Global extends PageManager {
 
             'dashboard.top.salesInfo.label': 'Account Name:',
             'dashboard.company.selected': 'Selected',
+            'tips.checkoutErr.qtyErr': "ASDASD"
         };
 
         window.b3themeConfig.useStyles = {
@@ -82,9 +83,6 @@ export default class Global extends PageManager {
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '0.8rem'
-            },
-            'dashboard.top.salesInfo.label' : {
-                backgroundColor: "red"
             }
         };
 
@@ -155,7 +153,13 @@ export default class Global extends PageManager {
                     }
                 },
             },
+            shoppinglist: {
+                callback() {
+                    $('#shopping_list_table').find('input:checkbox').prop('checked', true);
+                },
+            },
         };
+
         /* BundleB2B */
         this.getComnpanyFields();
         this.redirectFromDashboard();
@@ -336,7 +340,6 @@ export default class Global extends PageManager {
                             const companyInfo = await fetch(`https://api-b2b.bigcommerce.com/api/v2/companies/${companyId}`, b2bOptions)
                             .then(response => response.json())
                             .then(result => result);
-                            console.log(companyInfo)
                             if (companyInfo.code !== 200) {
                                 const tr = document.getElementById(companyId);
                                 if (tr) {

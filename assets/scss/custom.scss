@@ -1124,6 +1124,17 @@ p.u-textAlignCenter {
     }
 }
 
+.c003 table.c00128 tr>td:nth-child(4) {
+    @media (min-width: 551px) {
+        width: 15%;
+    }
+}
+
+.c003 table.c00128 tr>td:nth-child(6) {
+    @media (min-width: 551px) {
+        width: 7%;
+    }
+}
 
 .c003 table.c00128 tr>td {
     @media (min-width: 551px) {
@@ -1156,7 +1167,7 @@ p.u-textAlignCenter {
     font-size: 0.8rem;
 
     @media (max-width: 550px) {
-        font-size: 1rem;
+        font-size: 0.7rem;
     }
 }
 
@@ -1262,4 +1273,17 @@ p.u-textAlignCenter {
     @media screen and (max-width:551px) {
         display: block;
     }
+}
+
+.company_admin_impersonation .c00132 {
+    font-size: 0.7rem !important;
+}
+
+.c00134 {
+    display: flex;
+    justify-content: center;
+}
+
+.c00135 {
+    font-size: 0.8rem;
 }
