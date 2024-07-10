@@ -50,6 +50,7 @@ export default class Global extends PageManager {
             'shopping.list.edit.modal.form.name.label': 'Order Draft Name',
             'shopping.list.createModal.title.label': 'Duplicate Order Draft',
             'shopping.list.creatNewListBtn': 'Add To a New Draft',
+            'orders.add.to.new.shopping.list.button': 'Add to Order Drafts',
             'order.addTo.shoppingListBtn': 'Add to Order Drafts',
             'buyAgain.addToShoppingList.btn': 'Add to Order Drafts',
             'buyAgain.createModal.title.label': 'Create New Order Draft',
