@@ -14,6 +14,7 @@ import privacyCookieNotification from './global/cookieNotification';
 import carousel from './common/carousel';
 import svgInjector from './global/svg-injector';
 import 'regenerator-runtime/runtime';
+import { productIsInStock } from './custom-check-stock';
 
 export default class Global extends PageManager {
     onReady() {
@@ -156,17 +157,35 @@ export default class Global extends PageManager {
             },
             shoppinglist: {
                 callback() {
+                    // select all checkboxes by default on Order Drafts
                     $('#shopping_list_table').find('input:checkbox').prop('checked', true);
+
+                    const displayOOSInOrderDraft = () => {
+                        $('#shopping_list_table > tbody > tr').each(function() {
+                            const product_id = $(this).attr('data-product-id');
+                            productIsInStock(product_id.toString()).then((isInStock) => {
+                                if (!isInStock) {
+                                    $('#shopping_list_table').find(`tr[data-product-id="${product_id}"]`).find('td.col-product-qty').empty();
+                                    $('#shopping_list_table').find(`tr[data-product-id="${product_id}"]`).find('td.col-product-qty').text('Out of Stock');
+                                    $('#shopping_list_table').find(`tr[data-product-id="${product_id}"]`).find('td.col-product-qty').css('color', 'red');
+                                }
+                            });
+                        });
+                    };
+
+                    displayOOSInOrderDraft();
                 },
             },
         };
-
+        
         /* BundleB2B */
-        this.getComnpanyFields();
+        this.getCompanyFields();
         this.redirectFromDashboard();
+        
     }
+    
 
-    async getComnpanyFields() {
+    async getCompanyFields() {
         const hostUrl = window.location.origin;
         const customer = this.context.customer;
         const options = { method: 'GET', credentials: 'same-origin', headers: { Accept: 'application/json', 'Content-Type': 'application/json' } };

@@ -3,6 +3,9 @@ export function getSingleProductQuery(productId) {
                site {
                  product(entityId: ${productId}) {
                       name
+                      inventory {
+                        isInStock
+                      }
                       customFields {
                         edges {
                           node {
