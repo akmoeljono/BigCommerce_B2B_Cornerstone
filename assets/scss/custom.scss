@@ -1175,7 +1175,7 @@ p.u-textAlignCenter {
     margin: 0;
 }
 
-// force set table headers on Dashboard
+// force set table headers on Dashboard for small screen
 .responsive-table tbody td:nth-of-type(1):before {
     @media (max-width: 550px) {
         content: "Account ID:" !important;

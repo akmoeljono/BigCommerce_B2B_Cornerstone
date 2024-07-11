@@ -74,11 +74,15 @@ $card-preview-zoom-bottom-offset:       6rem;
 .cart-header-item {
     padding-bottom: spacing("base");
 
-    &:last-child {
-        text-align: right;
-    }
+    // &:last-child {
+    //     text-align: right;
+    // }
 
     color: #4f4f4f;
+
+    @include breakpoint("medium") {
+        text-align: center;
+    }
 }
 
 .cart-list {
@@ -114,8 +118,9 @@ $card-preview-zoom-bottom-offset:       6rem;
 
 .cart-item-block {
     display: block; // 1
-
+    
     @include breakpoint("medium") {
+        text-align: center;
         display: table-cell; // 1
     }
 
@@ -125,7 +130,6 @@ $card-preview-zoom-bottom-offset:       6rem;
 }
 
 .cart-item-figure {
-
     @include cart-item-lazy-load-img-placeholder;
     float: left;
     margin-bottom: $cart-item-spacing;
@@ -134,10 +138,10 @@ $card-preview-zoom-bottom-offset:       6rem;
     width: grid-calc(4, $total-columns);
 
     @include breakpoint("small") {
-        // height: auto;
         margin-bottom: 0;
         margin-left: -(grid-calc(4, $total-columns));
         width: grid-calc(4, $total-columns);
+        margin-left: 0;
     }
 
     @include breakpoint("medium") {
@@ -174,7 +178,9 @@ $card-preview-zoom-bottom-offset:       6rem;
 
     @include breakpoint("medium") {
         display: table-cell;
+        text-align: left;
         padding: $cart-item-spacing;
+        width: grid-calc(4, $total-columns);
     }
 }
 
@@ -195,7 +201,7 @@ $card-preview-zoom-bottom-offset:       6rem;
 
     @include breakpoint("medium") {
         float: none;
-        width: grid-calc(2, $total-columns);
+        width: grid-calc(1, $total-columns);
 
         &:last-child {
             text-align: right;
@@ -217,6 +223,8 @@ $card-preview-zoom-bottom-offset:       6rem;
     @include breakpoint("medium") {
         text-align: center;
         padding: 0;
+        width: 10%;
+        min-width: 110px;
     }
 }
 
