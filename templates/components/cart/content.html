@@ -193,13 +193,19 @@
                     <span class="cart-item-label">SKU</span>
                     <span class="cart-item-value" id="sku-{{this.sku}}"></span>
                     <script type="text/javascript">
-                        var sku = "{{this.sku}}".split('-')[0];
-                        document.getElementById('sku-{{this.sku}}').innerHTML = sku;
+                        var cartItemSku = "{{this.sku}}".split('-')[0];
+                        document.getElementById('sku-{{this.sku}}').innerHTML = cartItemSku;
                     </script>
                 </td>
+                {{log this}}
                 <td class="cart-item-block cart-item-info">
                     <span class="cart-item-label">Price per Piece</span>
-                    <span class="cart-item-value">-</span>
+                    <span class="cart-item-value" id="ppp-{{this.id}}"></span>
+                    <script type="text/javascript">
+                        var cartItemVariantQty = parseInt("{{this.options.[0].value}}".split(' ').pop());
+                        var cartItemPricePerPiece = "{{this.price.value}}" / cartItemVariantQty;
+                        document.getElementById('ppp-{{this.id}}').innerHTML = cartItemPricePerPiece;
+                    </script>
                 </td>
                 <td class="cart-item-block cart-item-info">
                     <span class="cart-item-label">{{lang 'cart.checkout.price'}}</span>
