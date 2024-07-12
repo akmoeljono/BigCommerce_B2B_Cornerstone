@@ -203,7 +203,7 @@
                     <script type="text/javascript">
                         var cartItemVariantQty = parseInt("{{this.options.[0].value}}".split(' ').pop());
                         var cartItemPricePerPiece = "{{this.price.value}}" / cartItemVariantQty;
-                        document.getElementById('ppp-{{this.id}}').innerHTML = cartItemPricePerPiece;
+                        document.getElementById('ppp-{{this.id}}').innerHTML = cartItemPricePerPiece.toFixed(2);
                     </script>
                 </td>
                 <td class="cart-item-block cart-item-info">
