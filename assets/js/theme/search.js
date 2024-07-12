@@ -9,6 +9,7 @@ import collapsibleFactory from './common/collapsible';
 import 'jstree';
 import nod from './common/nod';
 import { createTranslationDictionary } from './common/utils/translations-utils';
+import customAddToCart from './custom-add-to-cart';
 
 const leftArrowKey = 37;
 const rightArrowKey = 39;
@@ -215,6 +216,8 @@ export default class Search extends CatalogPage {
             .prependTo('body');
 
         setTimeout(() => $searchResultsMessage.focus(), 100);
+
+        customAddToCart(this.context);
     }
 
     loadTreeNodes(node, cb) {
