@@ -8,6 +8,7 @@ export default function () {
     const $quickSearchForms = $('[data-quick-search-form]');
     const $quickSearchExpand = $('#quick-search-expand');
     const $searchQuery = $quickSearchForms.find('[data-search-quick]');
+    
     const stencilDropDownExtendables = {
         hide: () => {
             $quickSearchExpand.attr('aria-expanded', false);
@@ -44,6 +45,8 @@ export default function () {
             }
 
             $quickSearchResults.html(response);
+            $quickSearchResults.addClass('displayQuickSearch');
+
             const $quickSearchResultsCurrent = $quickSearchResults.filter(':visible');
 
             const $noResultsMessage = $quickSearchResultsCurrent.find('.quickSearchMessage');
@@ -82,12 +85,14 @@ export default function () {
     // Catch the submission of the quick-search forms
     $quickSearchForms.on('submit', event => {
         event.preventDefault();
-
+        
         const $target = $(event.currentTarget);
         const searchQuery = $target.find('input').val();
         const searchUrl = $target.data('url');
 
         if (searchQuery.length === 0) {
+            $quickSearchResults.empty();
+            $quickSearchResults.removeClass("displayQuickSearch");
             return;
         }
 

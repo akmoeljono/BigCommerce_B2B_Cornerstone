@@ -25,14 +25,9 @@
 
 .quickSearchResults {
     margin-top: spacing("single");
-    overflow-y: scroll;
 
     @include breakpoint("medium") {
         margin-top: 0;
-        overflow-y: auto;
-        height: 100vh;
-        padding-bottom: 50px;
-
     }
 
     .modal-close {
@@ -41,6 +36,15 @@
         @include breakpoint("medium") {
             display: block;
         }
+    }
+}
+
+.quickSearchResults.displayQuickSearch {
+    @include breakpoint("medium") {
+        height: 100vh;
+        padding-bottom: 50px;
+        display: inherit;
+        overflow-y: auto;
     }
 }
 
