@@ -5,6 +5,7 @@ import StencilDropDown from './stencil-dropdown';
 export default function () {
     const TOP_STYLING = 'top: 49px;';
     const $quickSearchResults = $('.quickSearchResults');
+    const quickSearchResultsDisplayClass = 'displayQuickSearch';
     const $quickSearchForms = $('[data-quick-search-form]');
     const $quickSearchExpand = $('#quick-search-expand');
     const $searchQuery = $quickSearchForms.find('[data-search-quick]');
@@ -45,7 +46,7 @@ export default function () {
             }
 
             $quickSearchResults.html(response);
-            $quickSearchResults.addClass('displayQuickSearch');
+            $quickSearchResults.addClass(quickSearchResultsDisplayClass);
 
             const $quickSearchResultsCurrent = $quickSearchResults.filter(':visible');
 
@@ -92,7 +93,7 @@ export default function () {
 
         if (searchQuery.length === 0) {
             $quickSearchResults.empty();
-            $quickSearchResults.removeClass("displayQuickSearch");
+            $quickSearchResults.removeClass(quickSearchResultsDisplayClass); 
             return;
         }
 
