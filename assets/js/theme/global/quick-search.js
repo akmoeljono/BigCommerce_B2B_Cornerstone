@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import utils from '@bigcommerce/stencil-utils';
 import StencilDropDown from './stencil-dropdown';
+import customAddToCart from '../custom-add-to-cart';
 
-export default function () {
+export default function (context) {
     const TOP_STYLING = 'top: 49px;';
     const $quickSearchResults = $('.quickSearchResults');
     const quickSearchResultsDisplayClass = 'displayQuickSearch';
@@ -49,6 +50,8 @@ export default function () {
             $quickSearchResults.addClass(quickSearchResultsDisplayClass);
 
             const $quickSearchResultsCurrent = $quickSearchResults.filter(':visible');
+
+            customAddToCart(context);
 
             const $noResultsMessage = $quickSearchResultsCurrent.find('.quickSearchMessage');
             if ($noResultsMessage.length) {

@@ -250,6 +250,10 @@ const renderPLPQtyBox = async function (productIDs) {
 
     allPageProducts.each(function () {
         const currentProduct = formattedData.filter(product => product.entityId === $(this).data('id'))[0];
+        if (!$(this).find('.custom-add-to-cart').is(':empty')) {
+            return;
+        }
+
         // renderQtyPerUnit(currentProduct, $(this));
         if (!currentProduct?.isInStock) {
             $(this).find('.custom-add-to-cart').append(renderOOS());

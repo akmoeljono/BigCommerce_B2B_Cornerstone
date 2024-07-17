@@ -2,7 +2,7 @@
     {{> components/common/modal/modal-close-btn additional_attr='data-drop-down-close'}}
     <ul class="productGrid" {{#if settings.data_tag_enabled}} data-list-name="Quick Search Results" {{/if}}>
         {{#each product_results.products}}
-        <li class="product">
+        <li class="product" data-id="{{id}}">
                 {{> components/products/card
                         settings=../settings
                         alternate=true
