@@ -9,6 +9,9 @@ export default function () {
     const $quickSearchForms = $('[data-quick-search-form]');
     const $quickSearchExpand = $('#quick-search-expand');
     const $searchQuery = $quickSearchForms.find('[data-search-quick]');
+
+    var typingTimer;                //timer identifier
+    var doneTypingInterval = 5000;  //time in ms (5 seconds)
     
     const stencilDropDownExtendables = {
         hide: () => {
@@ -21,6 +24,7 @@ export default function () {
             event.stopPropagation();
         },
     };
+
     const stencilDropDown = new StencilDropDown(stencilDropDownExtendables);
     stencilDropDown.bind($('[data-search="quickSearch"]'), $('#quickSearch'), TOP_STYLING);
 
@@ -37,9 +41,24 @@ export default function () {
         }
     };
 
+    const clearQuickSearch = () => {
+        $quickSearchResults.empty();
+        $quickSearchResults.removeClass(quickSearchResultsDisplayClass); 
+    };
+
     // stagger searching for 1200ms after last input
     const debounceWaitTime = 1200;
     const doSearch = _.debounce((searchQuery) => {
+        if (searchQuery.length === 0) {
+            clearQuickSearch();
+            return;
+        }
+
+        if (searchQuery.length < 3) {
+            return;
+        } 
+
+        console.log(searchQuery)
         utils.api.search.search(searchQuery, { template: 'search/quick-results' }, (err, response) => {
             if (err) {
                 return false;
@@ -75,12 +94,18 @@ export default function () {
     utils.hooks.on('search-quick', (event, currentTarget) => {
         const searchQuery = $(currentTarget).val();
 
-        // server will only perform search with at least 3 characters
-        if (searchQuery.length < 3) {
+        if (searchQuery.length === 0) {
+            clearQuickSearch();
             return;
         }
+    });
 
-        doSearch(searchQuery);
+    // Time user typing
+    $('.quick-search-input').keyup(function(){
+        clearTimeout(typingTimer);
+        if ($('.quick-search-input').val()) {
+            typingTimer = setTimeout(doSearch($('.quick-search-input').val()), doneTypingInterval);
+        }
     });
 
     // Catch the submission of the quick-search forms
@@ -92,8 +117,7 @@ export default function () {
         const searchUrl = $target.data('url');
 
         if (searchQuery.length === 0) {
-            $quickSearchResults.empty();
-            $quickSearchResults.removeClass(quickSearchResultsDisplayClass); 
+            clearQuickSearch();
             return;
         }
 
