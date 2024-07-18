@@ -39,6 +39,15 @@
     }
 }
 
+.quickSearchResults.displayQuickSearch {
+    @include breakpoint("medium") {
+        height: 100vh;
+        padding-bottom: 50px;
+        display: inherit;
+        overflow-y: auto;
+    }
+}
+
 .advancedSearch-separator {
     display: none;
 }

@@ -69,7 +69,6 @@ export default class Global extends PageManager {
 
             'dashboard.top.salesInfo.label': 'Account Name:',
             'dashboard.company.selected': 'Selected',
-            'tips.checkoutErr.qtyErr': "ASDASD"
         };
 
         window.b3themeConfig.useStyles = {
@@ -181,7 +180,6 @@ export default class Global extends PageManager {
         /* BundleB2B */
         this.getCompanyFields();
         this.redirectFromDashboard();
-        
     }
     
 
@@ -444,7 +442,7 @@ export default class Global extends PageManager {
             if (sessionStorage.B3CompanyId) {
                 if (!sessionStorage.isStartedMasq) {
                     sessionStorage.setItem('isStartedMasq', true);
-                    window.location.href = '/product-catalog/all/adhesive-school/';
+                    window.location.href = '/product-catalog/all/all-products/';
                 }
             } else {
                 sessionStorage.removeItem('isStartedMasq');

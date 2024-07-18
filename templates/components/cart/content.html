@@ -2,9 +2,9 @@
     <thead class="cart-header">
         <tr>
             <th class="cart-header-item">{{lang 'cart.checkout.item'}}</th>
-            <th class="cart-header-item">Description</th>
-            <th class="cart-header-item">SKU</th>
-            <th class="cart-header-item">Price per Piece</th>
+            <th class="cart-header-item">{{lang 'cart.checkout.description'}}</th>
+            <th class="cart-header-item">{{lang 'cart.checkout.sku'}}</th>
+            <th class="cart-header-item">{{lang 'cart.checkout.price_per_piece'}}</th>
             <th class="cart-header-item">{{lang 'cart.checkout.price'}}</th>
             <th class="cart-header-item">{{lang 'cart.checkout.quantity'}}</th>
             <th class="cart-header-item">{{lang 'cart.checkout.total'}}</th>
@@ -157,7 +157,7 @@
                             {{/each}}
                         </dl>
 
-                        {{#if can_modify}}
+                        <!-- {{#if can_modify}}
                             <a href="#"
                             data-item-edit="{{id}}"
                             data-product-id="{{product_id}}"
@@ -165,7 +165,7 @@
                             >
                                 {{lang 'common.change'}}
                             </a>
-                        {{/if}}
+                        {{/if}} -->
                     {{/if}}
 
                     {{#if type '==' 'GiftCertificate'}}
@@ -190,7 +190,7 @@
 
                 </td>
                 <td class="cart-item-block cart-item-info">
-                    <span class="cart-item-label">SKU</span>
+                    <span class="cart-item-label">{{lang 'cart.checkout.sku'}}</span>
                     <span class="cart-item-value" id="sku-{{this.sku}}"></span>
                     <script type="text/javascript">
                         var cartItemSku = "{{this.sku}}".split('-')[0];
@@ -198,12 +198,12 @@
                     </script>
                 </td>
                 <td class="cart-item-block cart-item-info">
-                    <span class="cart-item-label">Price per Piece</span>
+                    <span class="cart-item-label">{{lang 'cart.checkout.price_per_piece'}}</span>
                     <span class="cart-item-value" id="ppp-{{this.id}}"></span>
                     <script type="text/javascript">
                         var cartItemVariantQty = parseInt("{{this.options.[0].value}}".split(' ').pop());
                         var cartItemPricePerPiece = "{{this.price.value}}" / cartItemVariantQty;
-                        document.getElementById('ppp-{{this.id}}').innerHTML = cartItemPricePerPiece.toFixed(2);
+                        document.getElementById('ppp-{{this.id}}').innerHTML = `$${cartItemPricePerPiece.toFixed(2)}`;
                     </script>
                 </td>
                 <td class="cart-item-block cart-item-info">
@@ -220,7 +220,7 @@
                 
                 <td class="cart-item-block cart-item-info cart-item-quantity">
                     <div id="oos-{{this.id}}" style="color: red;"></div>
-                    <label class="form-label cart-item-label oos-{{this.id}}" for="qty-{{id}}">{{lang 'products.quantity'}}</label>
+                    <label class="form-label cart-item-label oos-{{this.id}}" for="qty-{{id}}">{{lang 'cart.checkout.quantity'}}</label>
                     <div class="form-increment oos-{{this.id}}">
                         {{#if can_modify}}
                             <button class="button button--icon"
