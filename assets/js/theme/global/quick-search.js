@@ -59,7 +59,6 @@ export default function (context) {
             return;
         } 
 
-        console.log(searchQuery)
         utils.api.search.search(searchQuery, { template: 'search/quick-results' }, (err, response) => {
             if (err) {
                 return false;

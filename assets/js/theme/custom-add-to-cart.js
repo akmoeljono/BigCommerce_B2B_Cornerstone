@@ -173,7 +173,7 @@ const onInputChange = async $input => {
 };
 
 const qtyButtonEvent = $selector => {
-    $selector.find('button').on('click', (e) => {
+    $selector.find('button').unbind('click').on('click', (e) => {
         const currentValue = $selector.find('input').val();
         const increment = $(e.target).hasClass('dec') ? -1 : 1;
         const newValue = +currentValue + increment;
