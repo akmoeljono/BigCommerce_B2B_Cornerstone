@@ -69,7 +69,6 @@ export default class Global extends PageManager {
 
             'dashboard.top.salesInfo.label': 'Account Name:',
             'dashboard.company.selected': 'Selected',
-            'tips.checkoutErr.qtyErr': "ASDASD"
         };
 
         window.b3themeConfig.useStyles = {
