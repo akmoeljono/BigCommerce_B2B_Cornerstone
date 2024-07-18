@@ -101,7 +101,7 @@ export default function () {
     });
 
     // Time user typing
-    $('.quick-search-input').keyup(function(){
+    $('.quick-search-input').on('input', function() {
         clearTimeout(typingTimer);
         if ($('.quick-search-input').val()) {
             typingTimer = setTimeout(doSearch($('.quick-search-input').val()), doneTypingInterval);
