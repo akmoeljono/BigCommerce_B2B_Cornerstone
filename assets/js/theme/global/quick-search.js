@@ -11,7 +11,7 @@ export default function () {
     const $searchQuery = $quickSearchForms.find('[data-search-quick]');
 
     var typingTimer;                //timer identifier
-    var doneTypingInterval = 5000;  //time in ms (5 seconds)
+    var doneTypingInterval = 7000;  //time in ms
     
     const stencilDropDownExtendables = {
         hide: () => {
@@ -58,7 +58,6 @@ export default function () {
             return;
         } 
 
-        console.log(searchQuery)
         utils.api.search.search(searchQuery, { template: 'search/quick-results' }, (err, response) => {
             if (err) {
                 return false;
@@ -98,13 +97,10 @@ export default function () {
             clearQuickSearch();
             return;
         }
-    });
 
-    // Time user typing
-    $('.quick-search-input').on('input', function() {
         clearTimeout(typingTimer);
-        if ($('.quick-search-input').val()) {
-            typingTimer = setTimeout(doSearch($('.quick-search-input').val()), doneTypingInterval);
+        if (searchQuery.length) {
+            typingTimer = setTimeout(doSearch(searchQuery), doneTypingInterval);
         }
     });
 
