@@ -303,6 +303,10 @@
 
     .productGrid {
         padding: spacing("single") 0 0;
+        
+        @include breakpoint("medium") {
+            min-width: 850px;
+        } 
 
         @include breakpoint("small") {
             padding: spacing("double") 0 0;

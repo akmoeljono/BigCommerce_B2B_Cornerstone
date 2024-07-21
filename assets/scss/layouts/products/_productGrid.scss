@@ -25,11 +25,11 @@
         vertical-align: top;
 
         @include breakpoint("small") {
-            width: grid-calc(4, $total-columns);
+            width: grid-calc(6, $total-columns);
         }
 
         @include breakpoint("medium") {
-            width: grid-calc(3, $total-columns);
+            width: grid-calc(4, $total-columns);
         }
     }
 }
