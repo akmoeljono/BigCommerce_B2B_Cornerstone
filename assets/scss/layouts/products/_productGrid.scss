@@ -11,12 +11,19 @@
 // -----------------------------------------------------------------------------
 
 .productGrid {
-
     @include u-listBullets("none");
     @include grid-row($behavior: "nest");
     font-size: 0; // 1
     margin-bottom: spacing("single");
     margin-top: 25px;
+
+    @include breakpoint("medium") {
+        min-width: 950px;
+    }
+
+    @include breakpoint("small") {
+        min-width: 950px;
+    }
 
     .product {
         @include grid-column(12, $float: none);
