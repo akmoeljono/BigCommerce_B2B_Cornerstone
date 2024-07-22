@@ -71,6 +71,7 @@
         },
         "label": "Your Cart ({quantity, plural, one {# item} other {# items}})",
         "is_empty": "Your cart is empty",
+        "is_out_of_stock": "The inventory level on some of your items has fallen below the available quantity. Please contact your Account Manager for product availability.",
         "invalid_entry_message": "[ENTRY] is not a valid entry",
         "coupon_code": "Coupon Code",
         "discount": "Discount",

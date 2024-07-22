@@ -1,3 +1,7 @@
 {{#each cart.status_messages}}
-    {{> components/common/alert/alert-info message}}
+    {{#contains message 'The inventory level'}}
+        {{> components/common/alert/alert-info (lang 'cart.is_out_of_stock')}}
+    {{else}}
+        {{> components/common/alert/alert-info message}}
+    {{/contains}}
 {{/each}}
