@@ -40,8 +40,6 @@ export default class Global extends PageManager {
         window.b3themeConfig.useText = {
             'global.user.masquerade.begin.button': 'Create New Order',
             'global.user.masquerade.end.button': 'End Order',
-
-            // Change 'Shopping List' to 'Order Drafts'
             'nav.button.shoppinglists': 'Order Drafts',
             'shopping.list.title': 'Order Drafts',
             'shopping.list.create.button': 'Create New Order Draft',
@@ -50,7 +48,8 @@ export default class Global extends PageManager {
             'shopping.list.edit.modal.title': 'Edit Order Draft',
             'shopping.list.edit.modal.form.name.label': 'Order Draft Name',
             'shopping.list.createModal.title.label': 'Duplicate Order Draft',
-            'shopping.list.creatNewListBtn': 'Add To a New Draft',
+            'shopping.list.creatNewListBtn': 'Add to a New Draft',
+            'shopping.list.addToBtn': '{name}',
             'orders.add.to.new.shopping.list.button': 'Add to Order Drafts',
             'order.addTo.shoppingListBtn': 'Add to Order Drafts',
             'buyAgain.addToShoppingList.btn': 'Add to Order Drafts',
@@ -66,7 +65,6 @@ export default class Global extends PageManager {
             'tips.shoppingListUpdateSuccess': 'Order Draft Info changed successfully',
             'tips.confirmDeleteShoppingListItem': 'Are you sure you want to delete selected item(s) from the order draft?',
             'tips.deleteShoppingListItemSuccess': 'Product(s) deleted from the order draft successfully',
-
             'dashboard.top.salesInfo.label': 'Account Name:',
             'dashboard.company.selected': 'Selected',
         };
