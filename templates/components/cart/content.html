@@ -107,6 +107,7 @@
                     var isInStock = getInStockStatus(variantId, product);
                     if (!isInStock) {
                         document.getElementById("oos-{{this.id}}").innerHTML = "Out of Stock";
+                        document.getElementById("oos-{{this.id}}").style.display = "inline";
                         document.querySelectorAll(".oos-{{this.id}}").forEach(el => {
                             el.style.display = "none";
                         })
@@ -219,8 +220,9 @@
                 </td>
                 
                 <td class="cart-item-block cart-item-info cart-item-quantity">
-                    <div id="oos-{{this.id}}" style="color: red;"></div>
-                    <label class="form-label cart-item-label oos-{{this.id}}" for="qty-{{id}}">{{lang 'cart.checkout.quantity'}}</label>
+                    <span class="cart-item-label">{{lang 'cart.checkout.quantity'}}</span>
+                    <span class="cart-item-value" id="oos-{{this.id}}" style="color: #DD3535; font-weight: 700; display: none;"></span>
+                    <!-- <label class="form-label cart-item-label oos-{{this.id}}" for="qty-{{id}}">{{lang 'cart.checkout.quantity'}}</label> -->
                     <div class="form-increment oos-{{this.id}}">
                         {{#if can_modify}}
                             <button class="button button--icon"
