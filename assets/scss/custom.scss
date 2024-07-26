@@ -1287,3 +1287,12 @@ p.u-textAlignCenter {
 .c00135 {
     font-size: 0.8rem;
 }
+
+.alertBox-message {
+    text-align: center;
+    
+    @include breakpoint("medium") {
+        padding-left: 200px;
+        padding-right: 200px;
+    }
+}
