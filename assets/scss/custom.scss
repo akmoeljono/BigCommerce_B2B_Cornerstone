@@ -1288,7 +1288,7 @@ p.u-textAlignCenter {
     font-size: 0.8rem;
 }
 
-.alertBox-message {
+[data-cart-status] .alertBox-message {
     text-align: center;
     
     @include breakpoint("medium") {
