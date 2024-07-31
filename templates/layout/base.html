@@ -61,6 +61,7 @@
         <script>
             var bearerToken = "{{ settings.storefront_api.token }}";
         </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     </head>
     <body class="{{#unless customer}}is-guest{{/unless}}">
         <svg data-src="{{cdn 'img/icon-sprite.svg'}}" class="icons-svg-sprite"></svg>
