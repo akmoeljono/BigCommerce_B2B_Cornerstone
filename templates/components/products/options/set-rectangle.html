@@ -5,7 +5,6 @@
 
         {{> components/common/requireness-msg}}
     </label>
-
     {{#unless required}}
         <input
             class="form-radio"
@@ -19,25 +18,140 @@
             <span class="form-option-variant">{{lang 'products.none'}}</span>
         </label>
     {{/unless}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        var cartProductQuery = `query ProductById{
+            site {
+                product(entityId: {{@root.product.id}}) {
+                    name
+                    inventory {
+                        isInStock
+                    }
+                    customFields {
+                        edges {
+                        node {
+                            name
+                            value
+                        }
+                        }
+                    }
+                    variants {
+                        edges {
+                        node {
+                            prices {
+                            basePrice {
+                                value
+                            }
+                            }
+                            id
+                            entityId
+                            sku
+                            isPurchasable
+                            inventory {
+                            isInStock
+                            }
+                            options {
+                            edges {
+                                node {
+                                displayName
+                                entityId
+                                values {
+                                    edges {
+                                    node {
+                                        entityId
+                                        label
+                                    }
+                                    }
+                                }
+                                }
+                            }
+                            }
+                        }
+                        }
+                    }
+                    entityId
+                    }
+                }
+            }`;
 
-    {{#each this.values}}
-    <div class="form-option-wrapper">
-        <input
-            class="form-radio"
-            type="radio"
-            id="attribute_rectangle__{{../id}}_{{id}}"
-            name="attribute[{{../id}}]"
-            value="{{id}}"
-            {{#if selected}}
-                checked
-                data-default
-            {{/if}}
-            {{#if ../required}}required{{/if}}
-            data-label="{{label}}"
-        >
-        <label class="form-option" for="attribute_rectangle__{{../id}}_{{id}}" data-product-attribute-value="{{id}}">
-            <span class="form-option-variant">{{this.label}}</span>
-        </label>
-    </div>
-    {{/each}}
+        async function fetchGraphQLData(query) {
+            const queryOptions = {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${bearerToken}` },
+                body: JSON.stringify({
+                    query,
+                }),
+            };
+
+            try {
+                const response = await fetch('/graphql', queryOptions);
+                const result = await response.json();
+
+                if (!result || !result.data) {
+                    throw new Error('Invalid GraphQL response');
+                }
+
+                return result.data;
+            } catch (error) {
+                console.error('GraphQL error:', error);
+                throw error;
+            }
+        };
+
+        async function getSingleProduct() {
+            const query = cartProductQuery;
+            return await fetchGraphQLData(query);
+        };
+
+        async function getB2BOptions() {
+            return await getSingleProduct().then((product) => {
+                var variants = product.site.product.variants.edges.map((item) => {
+                    var variantNode = item.node.options.edges[0].node.values.edges[0].node
+                    return {
+                        id: variantNode.entityId,
+                        label: variantNode.label,
+                        selected: false,
+                        data: variantNode.label
+                    }
+                })
+                var b2bCustomFields = product.site.product.customFields.edges.filter((item) => item.node.name === 'B2Boptions');
+                var b2bOptions = (b2bCustomFields[0].node.value).split(',');
+                return variants.filter((item) => b2bOptions.includes(item.label));
+            });
+        }
+
+        function variantTemplate(variant) {
+            return `
+                <div class="form-option-wrapper">
+                    <input
+                        class="form-radio"
+                        type="radio"
+                        id="attribute_rectangle__{{@root.product.options.0.id}}_${variant.id}"
+                        name="attribute[{{@root.product.options.0.id}}]"
+                        value="${variant.id}"
+                        {{#if selected}}
+                            checked
+                            data-default
+                        {{/if}}
+                        {{#if ../required}}required{{/if}}
+                        data-label="${variant.label}"
+                    >
+                    <label class="form-option" for="attribute_rectangle__{{@root.product.options.0.id}}_${variant.id}" data-product-attribute-value="${variant.id}">
+                        <span class="form-option-variant">${variant.label}</span>
+                    </label>
+                </div>
+            `
+        }
+
+        // new values for set-rectangle
+        getB2BOptions().then((opts) => {
+            if (opts) {
+                opts.forEach((variant) => {
+                    $('#variants-rec').append(variantTemplate(variant));
+                })
+            }
+        });
+    </script>
+    <div id="variants-rec"></div>
 </div>
