@@ -134,7 +134,7 @@
                             checked
                             data-default
                         {{/if}}
-                        {{#if ../required}}required{{/if}}
+                        {{#if @root.product.options.0.required}}required{{/if}}
                         data-label="${variant.label}"
                     >
                     <label class="form-option" for="attribute_rectangle__{{@root.product.options.0.id}}_${variant.id}" data-product-attribute-value="${variant.id}">
