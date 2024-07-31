@@ -1,4 +1,5 @@
 <div class="form-field" data-product-attribute="set-rectangle" role="radiogroup" aria-labelledby="rectangle-group-label">
+    <!-- {{log @root.product.options}} -->
     <label class="form-label form-label--alternate form-label--inlineSmall" id="rectangle-group-label">
         {{this.display_name}}:
         <span data-option-value></span>
@@ -134,7 +135,7 @@
                             checked
                             data-default
                         {{/if}}
-                        {{#if ../required}}required{{/if}}
+                        {{#if @root.product.options.0.required}}required{{/if}}
                         data-label="${variant.label}"
                     >
                     <label class="form-option" for="attribute_rectangle__{{@root.product.options.0.id}}_${variant.id}" data-product-attribute-value="${variant.id}">
@@ -144,7 +145,6 @@
             `
         }
 
-        // new values for set-rectangle
         getB2BOptions().then((opts) => {
             if (opts) {
                 opts.forEach((variant) => {
