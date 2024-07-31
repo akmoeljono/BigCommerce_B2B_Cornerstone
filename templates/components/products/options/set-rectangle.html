@@ -20,106 +20,21 @@
     {{/unless}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-        var cartProductQuery = `query ProductById{
-            site {
-                product(entityId: {{@root.product.id}}) {
-                    name
-                    inventory {
-                        isInStock
+        function getB2BOptions() {
+            var productVariants = JSON.parse(`{{{json @root.product.options.[0].values}}}`);
+            var variants = productVariants.map((item) => {
+                return {
+                        id: item.id,
+                        label: item.label,
+                        selected: item.selected,
+                        data: item.data
                     }
-                    customFields {
-                        edges {
-                        node {
-                            name
-                            value
-                        }
-                        }
-                    }
-                    variants {
-                        edges {
-                        node {
-                            prices {
-                            basePrice {
-                                value
-                            }
-                            }
-                            id
-                            entityId
-                            sku
-                            isPurchasable
-                            inventory {
-                            isInStock
-                            }
-                            options {
-                            edges {
-                                node {
-                                displayName
-                                entityId
-                                values {
-                                    edges {
-                                    node {
-                                        entityId
-                                        label
-                                    }
-                                    }
-                                }
-                                }
-                            }
-                            }
-                        }
-                        }
-                    }
-                    entityId
-                    }
-                }
-            }`;
-
-        async function fetchGraphQLData(query) {
-            const queryOptions = {
-                method: 'POST',
-                credentials: 'same-origin',
-                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${bearerToken}` },
-                body: JSON.stringify({
-                    query,
-                }),
-            };
-
-            try {
-                const response = await fetch('/graphql', queryOptions);
-                const result = await response.json();
-
-                if (!result || !result.data) {
-                    throw new Error('Invalid GraphQL response');
-                }
-
-                return result.data;
-            } catch (error) {
-                console.error('GraphQL error:', error);
-                throw error;
-            }
-        };
-
-        async function getSingleProduct() {
-            const query = cartProductQuery;
-            return await fetchGraphQLData(query);
-        };
-
-        async function getB2BOptions() {
-            return await getSingleProduct().then((product) => {
-                var variants = product.site.product.variants.edges.map((item) => {
-                    var variantNode = item.node.options.edges[0].node.values.edges[0].node
-                    return {
-                        id: variantNode.entityId,
-                        label: variantNode.label,
-                        selected: false,
-                        data: variantNode.label
-                    }
-                })
-                var b2bCustomFields = product.site.product.customFields.edges.filter((item) => item.node.name === 'B2Boptions');
-                var b2bOptions = (b2bCustomFields[0].node.value).split(',');
-                return variants.filter((item) => b2bOptions.includes(item.label));
             });
-        }
+            var customFields = JSON.parse(`{{{json @root.product.custom_fields}}}`);
+            var b2bCustomFields = customFields.filter((item) => item.name === 'B2Boptions');
+            var b2bOptions = (b2bCustomFields[0].value).split(',');
+            return variants.filter((item) => b2bOptions.includes(item.label));
+        };
 
         function variantTemplate(variant) {
             return `
@@ -144,14 +59,16 @@
             `
         }
 
-        // new values for set-rectangle
-        getB2BOptions().then((opts) => {
-            if (opts) {
-                opts.forEach((variant) => {
+        function showB2BOptions() {
+            var b2bOptions = getB2BOptions();
+            if (b2bOptions) {
+                b2bOptions.forEach((variant) => {
                     $('#variants-rec').append(variantTemplate(variant));
-                })
-            }
-        });
+                });
+            };
+        }
+
+        showB2BOptions();
     </script>
     <div id="variants-rec"></div>
 </div>
