@@ -146,7 +146,6 @@
             {{product.detail_messages}}
         </div>
     </section>
-
     <section class="productView-details product-options">
         <div class="productView-options">
             <div class="price-per-unit"></div>
@@ -158,10 +157,11 @@
                   data-cart-item-add>
                 <input type="hidden" name="action" value="add">
                 <input type="hidden" name="product_id" value="{{product.id}}"/>
+               
                 <div data-product-option-change style="display:none;">
                     {{inject 'showSwatchNames' theme_settings.show_product_swatch_names}}
                     {{#each product.options}}
-                        {{{dynamicComponent 'components/products/options'}}}
+                        {{> components/products/options/set-rectangle}}
                     {{/each}}
                 </div>
                 <div class="form-field form-field--stock{{#unless product.stock_level}} u-hiddenVisually{{/unless}}">
@@ -185,7 +185,7 @@
         </div>
         {{> components/common/share url=product.url}}
     </section>
-
+    
     <article class="productView-description">
         {{#if theme_settings.show_product_details_tabs}}
             {{> components/products/description-tabs}}
