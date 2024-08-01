@@ -1288,11 +1288,11 @@ p.u-textAlignCenter {
     font-size: 0.8rem;
 }
 
-[data-cart-status] .alertBox-message {
+[data-cart-status] .alertBox--info {
     text-align: center;
     
     @include breakpoint("medium") {
-        padding-left: 200px;
-        padding-right: 200px;
+        padding-left: 185px;
+        padding-right: 185px;
     }
 }
