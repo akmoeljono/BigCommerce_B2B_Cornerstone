@@ -74,7 +74,9 @@ export default class Global extends PageManager {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'start',
-                fontSize: '0.8rem'
+                fontSize: '0.8rem',
+                padding: 0,
+                margin: 0,
             },
             'dashboard.head.info.right' : {
                 display: 'flex',
@@ -170,7 +172,7 @@ export default class Global extends PageManager {
                         });
                     };
 
-                    displayOOSInOrderDraft();
+                    // displayOOSInOrderDraft();
                 },
             },
         };
