@@ -19,7 +19,6 @@
         </label>
     {{/unless}}
     <div id="variants-rec"></div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         function getB2BOptions() {
             var productVariants = JSON.parse(`{{{json @root.product.options.[0].values}}}`);
@@ -64,7 +63,7 @@
             var b2bOptions = getB2BOptions();
             if (b2bOptions) {
                 b2bOptions.forEach((variant) => {
-                    $('#variants-rec').append(variantTemplate(variant));
+                    document.getElementById('variants-rec').innerHTML += variantTemplate(variant);
                 });
             };
         }
