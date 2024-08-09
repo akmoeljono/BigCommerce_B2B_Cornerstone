@@ -1,27 +1,13 @@
 <div class="form-field" data-product-attribute="set-rectangle" role="radiogroup" aria-labelledby="rectangle-group-label">
     <label class="form-label form-label--alternate form-label--inlineSmall" id="rectangle-group-label">
-        {{this.display_name}}:
+        {{this.display_name}}
         <span data-option-value></span>
-
-        {{> components/common/requireness-msg}}
+        <!-- {{> components/common/requireness-msg}} -->
     </label>
-    {{#unless required}}
-        <input
-            class="form-radio"
-            type="radio"
-            id="attribute_rectangle__{{id}}_none"
-            name="attribute[{{id}}]"
-            value=""
-            checked="{{#if defaultValue '==' ''}}checked{{/if}}"
-        >
-        <label class="form-option" for="attribute_rectangle__{{id}}_none">
-            <span class="form-option-variant">{{lang 'products.none'}}</span>
-        </label>
-    {{/unless}}
     <div id="variants-rec"></div>
     <script>
         function getB2BOptions() {
-            var productVariants = JSON.parse(`{{{json @root.product.options.[0].values}}}`);
+            var productVariants = JSON.parse(`{{{json product.options.[0].values}}}`);
             var variants = productVariants.map((item) => {
                 return {
                         id: item.id,
@@ -30,7 +16,7 @@
                         data: item.data
                     }
             });
-            var customFields = JSON.parse(`{{{json @root.product.custom_fields}}}`);
+            var customFields = JSON.parse(`{{{json product.custom_fields}}}`);
             var b2bCustomFields = customFields.filter((item) => item.name === 'B2Boptions');
             var b2bOptions = (b2bCustomFields[0].value).split(',');
             return variants.filter((item) => b2bOptions.includes(item.label));
@@ -42,17 +28,17 @@
                     <input
                         class="form-radio"
                         type="radio"
-                        id="attribute_rectangle__{{@root.product.options.0.id}}_${variant.id}"
-                        name="attribute[{{@root.product.options.0.id}}]"
+                        id="attribute_rectangle__{{product.options.0.id}}_${variant.id}"
+                        name="attribute[{{product.options.0.id}}]"
                         value="${variant.id}"
                         {{#if selected}}
                             checked
                             data-default
                         {{/if}}
-                        {{#if @root.product.options.0.required}}required{{/if}}
+                        {{#if product.options.0.required}}required{{/if}}
                         data-label="${variant.label}"
                     >
-                    <label class="form-option" for="attribute_rectangle__{{@root.product.options.0.id}}_${variant.id}" data-product-attribute-value="${variant.id}">
+                    <label class="form-option" for="attribute_rectangle__{{product.options.0.id}}_${variant.id}" data-product-attribute-value="${variant.id}">
                         <span class="form-option-variant">${variant.label}</span>
                     </label>
                 </div>
