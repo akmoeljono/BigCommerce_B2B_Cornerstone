@@ -1,10 +1,12 @@
 export function getProductsQuery(productIds) {
+    const IDs = productIds.join(',');
     return `query ExtendedProductsById{
                    site {
-                     products(entityIds: [${productIds.join(',')}], first: 50) {
+                     products(entityIds: [${IDs}], first: 48) {
                     edges {
                         node {
                           name
+                          sku
                           inventory {
                             isInStock
                           }

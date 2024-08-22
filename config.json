@@ -1,5 +1,5 @@
 {
-  "name": "Cornerstone 6.11.0 - B2B Edition_06/05/2024",
+  "name": "Cornerstone 6.11.0 - B2B Edition_BZC_08/22/2024",
   "version": "6.11.0 - auto loader",
   "template_engine": "handlebars_v4",
   "meta": {
@@ -112,7 +112,7 @@
     "productpage_reviews_count": 9,
     "productpage_related_products_count": 10,
     "productpage_similar_by_views_count": 10,
-    "categorypage_products_per_page": 100,
+    "categorypage_products_per_page": 48,
     "shop_by_price_visibility": true,
     "brandpage_products_per_page": 12,
     "searchpage_products_per_page": 12,
@@ -516,7 +516,7 @@
         "productpage_reviews_count": 9,
         "productpage_related_products_count": 10,
         "productpage_similar_by_views_count": 10,
-        "categorypage_products_per_page": 100,
+        "categorypage_products_per_page": 48,
         "shop_by_price_visibility": true,
         "brandpage_products_per_page": 12,
         "searchpage_products_per_page": 12,
