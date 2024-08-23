@@ -1304,3 +1304,26 @@ p.u-textAlignCenter {
 .category-banner img {
     opacity: 70%;
 }
+
+.buy-at-bazic-store-wrapper {
+    @media screen and (max-width: 800px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: -75px;
+    }
+}
+
+.buy-at-bazic-store {
+    color: white;
+    background-color: #006F51;
+    letter-spacing: 0.5px;
+    padding: 8px 12px 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.buy-at-bazic-store:hover {
+    color: white;
+    background-color: #008A06;
+}

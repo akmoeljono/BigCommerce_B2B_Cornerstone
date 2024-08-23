@@ -147,6 +147,7 @@
         </div>
     </section>
     <section class="productView-details product-options">
+        {{#if customer}}
         <div class="productView-options">
             <div class="price-per-unit"></div>
             <div class="custom-add-to-cart product-custom-add-to-cart"></div>
@@ -179,6 +180,11 @@
                 {{> components/common/wishlist-dropdown}}
             {{/if}}
         </div>
+        {{else}}
+        <div class="buy-at-bazic-store-wrapper">
+            <a class="buy-at-bazic-store" href="https://www.bazicstore.com/" target="_blank">Buy At Bazic Store</a>
+        </div>
+        {{/if}}
         {{> components/common/share url=product.url}}
     </section>
     
